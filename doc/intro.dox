@@ -1,0 +1,202 @@
+Embeded Meta Objects (EMO) Library
+
+Copyright (C) 2011  Dmitry A. Sysoev
+Copyright (C) 2011  Yuri O. Nuzhdin
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+
+/**
+\~english \page Intro Introduction into Embeded Meta Objects (EMO)
+\~russian \page Intro Введение во встраиваемые мета объекты (EMO)
+
+\~english
+
+EMO meta objects system is designed to facilitate developers
+to design and writing project. In order to that EMO provide a set of
+abstractions.
+
+
+
+\~russian \newest \~russian
+
+Система мета объектов EMO призвана облегчить разработчику задачу проектирования
+и написания проекта. Для этого система EMO предоставляет ряд абстракций.
+
+Применение мета объектов позволяет программисту создавать классы,
+хранящие дополнительную мета информацию и обладающие расширенными интерфейсами.
+
+Основным расширением классов являются сигналы и слоты. Слот --- это расширение
+понятия функции-члена класса. Она может быть вызвана как обычно.
+
+Тем не менее у слота есть существенное отличие от о функции-члена класса:
+слот может быть связан с сигналом, принадлежащем другому классу. Такая
+связь образуется на этапе выполнения программы.
+
+Сигнал может быть выброшен. При этом будут вызваны все связанные с ним слоты
+вне зависимости от того к каким классам они принадлежат.
+
+\section IntroEmoc Утилита emop (EMO Preprocessor)
+
+Вместе с библиотекой поставляется специальная утилита \ref Emop "emop", позволяющая
+использовать для описания слотов и сигналов более простой и наглядный
+синтаксис. Эта утилита генерирует дополнительные описания. Без её использования
+эти дополнительные инструкции придётся задавать в явном виде.
+
+Здесь рассматривается полный синтаксис. Упрощённый синтаксис описан в
+справке по \ref Emop "emop".
+
+\section IntroSlot Простейшее описание слота
+
+Слоты и сигналы могут быть созданы только внутри классов, производных от
+класса EmoObject. Ниже приводится пример описания слота, принимающего
+некоторые данные для обработки.
+
+Заголовочный файл:
+\code
+#include <EmoSlots>
+
+class DataReciever
+	:public EmoObject
+{
+	EMO_IMPROVED(DataReciever, EmoObject)
+	
+public:
+	void receiveData(char byte, bool status = true);
+	inline void receiveData(int word)
+	{
+		// ...
+	}
+	int receiveData();
+	
+	EMO_SLOTS(receiveData)
+};
+
+EMO_SLOT_DEFENITION(DataReciever::receiveData, (char, bool));
+EMO_SLOT_DEFENITION(DataReciever::receiveData, (int));
+\endcode
+
+Файл исходных кодов:
+\code
+EMO_BEGIN_SLOT(DataReciever::receiveData, (char, bool))
+	EMO_SLOT_ARGUMENT(char),
+	EMO_SLOT_ARGUMENT(bool)
+EMO_END_SLOT
+
+EMO_TYPICAL_SLOT1(DataReciever::receiveData, int)
+
+void DataReciever::receiveData(char byte, bool status)
+{
+	// ...
+}
+\endcode
+
+Определение \ref EMO_IMPROVED указывает на то, что класс \c DataReciever
+является мета объектом.
+
+Здесь \c receiveData обычная функция-член класса. В этом примере она имеет
+три перегруженных варианта:
+ -# \code void receiveData(char byte, bool status = true); \endcode
+ -# \code void receiveData(int word); \endcode
+ -# \code int receiveData(); \endcode
+
+Определения этих функций так же могут быть приведены как в файле исходного
+кода, так и непосредственно в определении класса.
+
+Макрос \ref EMO_SLOTS фиксирует имя \c receiveData как имя слота. Присутствие
+этого макроса означает, что по крайней одна из трёх перегруженных функций
+\c receiveData является слотом.
+
+Макрос \ref EMO_SLOT_DEFENITION определяет слот, ассоциированный с
+функцией \c receiveData, имеющей определённые аргументы. Только две
+из трёх перегруженных версий функции \c receiveData являются слотами.
+
+К функциям слотов предъявляется одно требование: они не могут возвращать
+значения (возвращаемое значение должно иметь тип \c void).
+
+Первый слот <tt>DataReciever::receiveData(char, bool)</tt> определяется
+при помощи набора макросов \ref EMO_BEGIN_SLOT, \ref EMO_SLOT_ARGUMENT и
+\ref EMO_END_SLOT. Использование этих макросов позволяют создавать
+слоты с произвольным числом аргументов.
+
+Второй слот <tt>DataReciever::receiveData(int)</tt> определяется при помощи
+макроса \ref EMO_TYPICAL_SLOT1. В его названии цифра 1 означает, что
+это слот с одним аргументом. В библиотеке определены аналогичные макросы,
+позволяющие в одну строчку описывать слоты, имеющие до 10 аргументов.
+
+\section IntroSignal Простейшее описание сигнала
+
+Сигнал не является функцией. Это объект который позволяет вызывать
+подключённые к нему слоты. Сигнал создаётся в момент создания класса мета
+объекта и существует до его уничтожения.
+
+Ниже приводится описание описание сигнала, который извещает о появлении
+новых данных.
+
+Заголовочный файл:
+\code
+#include <EmoSignals>
+
+class DataSender
+	:public EmoObject
+{
+	EMO_IMPROVED(DataSender, EmoObject)
+	
+public:
+	EMO_SIGNAL(sendByte, (char, bool));
+	EMO_SIGNAL(sendWord, (int));
+	
+	void gotData(int data);
+};
+\endcode
+
+Файл исходных кодов:
+\code
+EMO_BEGIN_SIGNAL(DataSender::sendByte, (char byte, bool status))
+	EMO_SIGNAL_ARGUMENT(byte),
+	EMO_SIGNAL_ARGUMENT(status)
+EMO_END_SIGNAL
+
+EMO_TYPICAL_SIGNAL1(DataSender::sendWord, int)
+\endcode
+
+Для того чтобы сигнал был выброшен его необходимо "вызвать" как обычную
+функцию. При этом произойдёт вызов всех связанных с ним на данный момент
+слотов:
+\code
+void DataSender::gotData(int data)
+{
+	this->sendWord(215);
+	this->sendWord(data);
+}
+\endcode
+
+\section IntroConnect Связывание слотов и сигналов
+
+Слот и сигнал могут быть связаны при помощи вызова специальной
+функции \ref emoConnect. В качестве аргументов ей передаются
+объекты для которых производится связывание.
+
+Пусть имеются два объекта \c dataSender и \c dataReceiver типов
+\c DataSender и \c DataReciever соответственно. Связь между их слотами
+и сигналами может быть установлена следующим образом:
+\code
+	emoConnect<EMO_SLOT(dataReceiver::receiveData, (char, bool))>(dataReceiver, dataSender->sendByte);
+	emoConnect<EMO_SLOT(dataReceiver::receiveData, (int))>(dataReceiver, dataSender->sendWord);
+\endcode
+
+При подключении слотов производится контроль типов и если попробовать
+подключить слот к сигналу с другим списком аргументов, то будет выдана
+ошибка компиляции.
+*/
