@@ -19,32 +19,15 @@
 	Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-#ifndef __EMO_DEFS_H
-#define __EMO_DEFS_H
+#ifndef __EMO_TYPES_H
+#define __EMO_TYPES_H
 
-#ifndef __cplusplus
+#include <emodefs.h>
 
-#	define EMO_BEGIN_NAMESPACE
-#	define EMO_END_NAMESPACE
+EMO_BEGIN_NAMESPACE
 
-#	define EMO_C_STRUCT(NAME) \
-		struct NAME; \
-		typedef struct NAME NAME;
-#	define EMO_EXTERN_C extern "C"
-#	define EMO_INLINE inline
+// TODO Define all field in basic structs.
 
-#else // __cplusplus
+EMO_END_NAMESPACE
 
-#	define EMO_BEGIN_NAMESPACE namespace Emo {
-#	define EMO_END_NAMESPACE }
-
-#	define EMO_C_STRUCT(NAME)
-#	define EMO_EXTERN_C
-#	if defined(EMO_WITH_TRUE_INLINE) || defined(__GNUC__)
-#		define EMO_INLINE inline
-#	else // EMO_WITH_TRUE_INLINE
-#endif
-
-#endif // __cplusplus
-
-#endif // __EMO_DEFS_H
+#endif // __EMO_TYPES_H

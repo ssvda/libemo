@@ -27,5 +27,7 @@ endif()
 
 set(EMO_HEADERS_FILES
   "${PROJECT_SOURCE_DIR}/include/emodefs.h"
+  "${PROJECT_SOURCE_DIR}/include/emotypes.h"
+  "${PROJECT_SOURCE_DIR}/include/emosignal.h"
 )
 
