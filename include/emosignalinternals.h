@@ -19,43 +19,28 @@
 	Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-#ifndef __EMO_SIGNAL_H
-#define __EMO_SIGNAL_H
+#ifndef __EMO_SIGNALINTRNALS_H
+#define __EMO_SIGNALINTRNALS_H
 
 #include <emodefs.h>
 #include <emotypes.h>
-#include <emosignalbase.h>
-#include <emosignalinternals.h>
 
 EMO_BEGIN_NAMESPACE
 
-// Forward declarations
-class EmoObject;
-class EmoSlotBase;
-
-template <typename SignalTypeBinding,
-          typename SignalInternals = EmoDefaultSignalInternals>
-class EmoSignal
-	:public EmoSignalBase
+template <bool dynamicalAllocation,
+          int staticalPreallocation,
+          int dynamicalPortion>
+class EmoSignalInternals
 {
 public:
-	typedef SignalTypeBinding TypeBinding;
-	typedef typename SignalTypeBinding::MasterType MasterType;
 	
-	EmoSignal();
-	~EmoSignal();
-	
-	void disconectFromObject(EmoObject *);
-	
-protected:
-	void bind(EmoSlotBase *slot, EmoObject *reciver);
-	void unbind(EmoSlotBase *slot, EmoObject *reciver);
-	void emoCall(void **a);
-	
-private:
-	SignalInternals m_int;
 };
+
+typedef EmoSignalInternals<true, 2, 2> EmoDefaultSignalInternals;
+typedef EmoSignalInternals<false, 1, 1> EmoTinySignalInternals;
+typedef EmoSignalInternals<true, 0, 2> EmoDynamicalSignalInternals;
+typedef EmoSignalInternals<true, 4, 4> EmoHugeSignalInternals;
 
 EMO_END_NAMESPACE
 
-#endif // __EMO_SIGNAL_H
+#endif // __EMO_SIGNALINTRNALS_H

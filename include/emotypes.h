@@ -26,6 +26,8 @@
 
 EMO_BEGIN_NAMESPACE
 
+typedef unsigned int EmoSizeType;
+
 // TODO Define all field in basic structs.
 
 EMO_END_NAMESPACE

@@ -1,0 +1,121 @@
+Embeded Meta Objects (EMO) Library
+
+Copyright (C) 2011  Dmitry A. Sysoev
+Copyright (C) 2011  Yuri O. Nuzhdin
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+
+/**
+\file emomemory.h
+\internal
+
+\~english \brief Declarations of operator for dynamic memory allocation.
+
+\~russian \brief Определения операторов для работы с динамической памятью.
+*/
+
+/**
+\fn operator new(Emo::EmoSizeType, Emo::EmoNewOperatorType)
+\internal
+
+\~english \brief Internal version of new operator.
+
+\param size Size of required memory region.
+
+Emo library provide wide ability to manage memory. All classes use
+special overloaded version of new and delete operators that can
+change their behaviour at compile-time.
+
+Use flowing form of operator to call this implementation:
+
+\~russian \brief Внутренняя версия оператора new.
+
+\param size Размер выделяемой области.
+
+Библиотека Emo предоставляет широкие возможности по управлению памяти.
+Все классы библиотеки используют специальные перегруженные версии операторов
+для работы с динамической памятью, поведение которых может быть конкретизировано
+на стадии компиляции.
+
+Для обращения к этой версии используйте следующую форму вызова:
+
+\~
+\code
+new(Emo::EmoNewOperator) Type(arguments)
+\endcode
+
+\see EMO_USE_STD_ALLOCATOR, EMO_USE_C_ALLOCATOR, EMO_USE_CUSTOM_ALLOCATOR,
+EMO_USE_BUILDIN_ALLOCATOR
+*/
+
+/**
+\fn operator new[](Emo::EmoSizeType, Emo::EmoNewOperatorType)
+\internal
+
+\copybrief operator new(Emo::EmoSizeType, Emo::EmoNewOperatorType)
+
+\see operator new(Emo::EmoSizeType, Emo::EmoNewOperatorType)
+*/
+
+/**
+\fn operator delete(void *, Emo::EmoNewOperatorType)
+\internal
+
+\~english \brief Internal version of delete operator.
+
+\param pointer Point to an allocated memory region.
+
+This operator is opposite to
+\ref operator new(Emo::EmoSizeType, Emo::EmoNewOperatorType) "internal new operator".
+
+Use flowing form of operator to call this implementation:
+
+\~russian \brief Внутренняя версия оператора delete.
+
+\param pointer Размер выделяемой области.
+
+Дейстиве этого оператора противоположно действию
+<see cref="operator new(Emo::EmoSizeType, Emo::EmoNewOperatorType)">внутренней версии оператора new</see>.
+
+Для обращения к этой версии используйте следующую форму вызова:
+
+\~
+\code
+new(Emo::EmoNewOperator) Type(arguments)
+\endcode
+
+\see EMO_USE_STD_ALLOCATOR, EMO_USE_C_ALLOCATOR, EMO_USE_CUSTOM_ALLOCATOR,
+EMO_USE_BUILDIN_ALLOCATOR
+*/
+
+/**
+\fn operator delete[](void *, Emo::EmoNewOperatorType)
+\internal
+
+\copybrief operator delete(void *, Emo::EmoNewOperatorType)
+
+\see operator delete(void *, Emo::EmoNewOperatorType)
+*/
+
+/**
+\def EMO_USE_STD_ALLOCATOR
+
+\~english \brief Turn LibEmo to use standard %new and %delete operators for
+dynamic memory allocation.
+
+\~russian \brief Переключает LibEmo на использование стандартных опреаторов
+%new и %delete для аллокации памяти.
+*/
+

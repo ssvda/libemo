@@ -29,5 +29,9 @@ set(EMO_HEADERS_FILES
   "${PROJECT_SOURCE_DIR}/include/emodefs.h"
   "${PROJECT_SOURCE_DIR}/include/emotypes.h"
   "${PROJECT_SOURCE_DIR}/include/emosignal.h"
+  "${PROJECT_SOURCE_DIR}/include/emosignalbase.h"
+  "${PROJECT_SOURCE_DIR}/include/emosignalinternals.h"
+  "${PROJECT_SOURCE_DIR}/include/emometacontainer.h"
+  "${PROJECT_SOURCE_DIR}/include/emomemory.h"
 )
 
