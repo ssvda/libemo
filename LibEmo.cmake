@@ -1,3 +1,4 @@
+################################################################################
 # Embeded Meta Objects (EMO) Library
 #
 # Copyright (C) 2011  Dmitry A. Sysoev
@@ -16,23 +17,16 @@
 # You should have received a copy of the GNU Lesser General Public
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
-
 ################################################################################
-# Configuring a project variables
 
-set(EMO_FORCE_INCLUDE_DIR "${PROJECT_SOURCE_DIR}/include")
+#
+# LibEmo library.
+#
 
-################################################################################
-# Including a general instructions
-
-include("${PROJECT_SOURCE_DIR}/mkspec/cmake/LibEmo.cmake")
-
-################################################################################
-# List of sources files
-set(EMO_SOURCES_FILES
-  "${PROJECT_SOURCE_DIR}/libemo/main.cpp"
+add_library(LibEmo
+       ${EMO_SOURCES}
+       ${EMO_HEADERS}
+       ${EMO_DOXYGEN_DOCUMENTATION}
 )
 
-################################################################################
-# Adding a library
-add_library(LibEmo ${EMO_SOURCES_FILES} ${EMO_HEADERS_FILES})
+
