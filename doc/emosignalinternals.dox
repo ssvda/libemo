@@ -31,5 +31,92 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 \~english \brief Internal representation of signal.
 
+\param DynamicalAllocation Is internal implementation should
+allocated dynamicly?
+\param StaticalPortion Number of record in general list
+of connections.
+\param DynamicalPortion Number of records in each additional
+portion to extend list of connections.
+
+Signal internal implementation class store so-called
+general list of signal connections. It's general cause
+of overhead in slot-signal technology.
+
+EMO Library provide flexible configuration for
+general list of connection allocation.
+
+Statical allocation for general list of connections
+suit to signals with many connections. Such signals
+may be created with \p DynamicalAllocation setted to
+\c false.
+
+In all other cases is a good idea to allow dynamical
+allocation of signal internals by setting
+\p DynamicalAllocation to true.
+
+\p StaticalPortion parameter determines
+base size of general connections list. It shall
+allocated staticly if \p DynamicalAllocation is \c false.
+Otherwise it placed dynamicly.
+
+\p DynamicPortion parameter determines size of
+blocks to extend general list of connections
+when \p StaticalPortion block is out.
+Special value \c 0 shall suppress dynamical
+allocation of extends.
+
 \~russian \brief Внутреннее представление сигнала.
+
+\param DynamicalAllocation Указывает должна ли память для хранения
+внутренней реализации выделяться динамически.
+\param StaticalPortion Определяет число записей основного
+списка.
+\param DynamicalPortion Определяет порции, которыми основной список
+будет расширяться.
+
+Класс внутреннего представления сигнала хранит список связей.
+Этот список явлется основным источником перерасхода памяти и
+ресурсов процессора.
+
+Библиотека предлагает гибкий механизм настройки способа хранения
+этого списка.
+
+Если заранее известно, что сигнал будет иметь множество связей
+имеет смысл разместить его список связей статически. Для
+этого в качестве \p DynamicalAllocation передаётся значение
+\c false.
+
+Если же в качестве \p DynamicalAllocation передано значение
+\c true выделение списка произойдёт динамически только в момент
+связывания. Это выгодно для редко используемых сигналов.
+
+Параметр \p StaticalPortion определяет размер статически
+выделяемого списка (если \p DynamicalAllocation установлен в
+\c false) и размер первого выделенного списка (если
+\p DynamicalAllocation установлен в \c true). 
+
+Параметр \p DynamicalPortion определяет размер блоков,
+которыми производится динамическое выделение памяти
+в списках, если заявленного в \p StaticalPortion
+размера становится недостаточно. Значение \c 0
+позволяет отключить динамическое выделение дополнительной памяти.
+В этом случае при попытке создать ещё одно соединение когда
+основной список соединений переполнен приведёт к ошибке.
+
+\~
+\pre
+\code StaticalPortion >= 0 \endcode
+\code DynamicalPortion >= 0 \endcode
+
+*/
+
+/**
+\class Emo::EmoSignalInternals::Conection
+\internal
+
+\~english \breif Type of single connection-ceil in
+list of connections.
+
+\~russian \brief Тип элементарной ячейки соединения
+в списке соединений.
 */

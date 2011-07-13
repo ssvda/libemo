@@ -52,15 +52,8 @@
 
 EMO_BEGIN_NAMESPACE
 
-enum EmoNewOperatorType
-{
-	EmoNewOperator
-};
-
-EMO_END_NAMESPACE
-
 inline
-void *operator new(Emo::EmoSizeType size, Emo::EmoNewOperatorType)
+void *emoDoMalloc(Emo::EmoSizeType size)
 {
 #if   defined(EMO_USE_STD_ALLOCATOR)
 	return ::operator new(size);
@@ -73,33 +66,7 @@ void *operator new(Emo::EmoSizeType size, Emo::EmoNewOperatorType)
 }
 
 inline
-void *operator new[](Emo::EmoSizeType size, Emo::EmoNewOperatorType)
-{
-#if   defined(EMO_USE_STD_ALLOCATOR)
-	return ::operator new(size);
-#elif defined(EMO_USE_C_ALLOCATOR)
-	return std::malloc(size);
-#elif defined(EMO_USE_CUSTOM_ALLOCATOR)
-	return EMO_USE_CUSTOM_MALLOC(size);
-#elif defined(EMO_USE_BUILDIN_ALLOCATOR)
-#endif // defined(EMO_USE_STD_ALLOCATOR)
-}
-
-inline
-void operator delete(void *pointer, Emo::EmoNewOperatorType)
-{
-#if   defined(EMO_USE_STD_ALLOCATOR)
-	return ::operator delete(pointer);
-#elif defined(EMO_USE_C_ALLOCATOR)
-	return std::free(pointer);
-#elif defined(EMO_USE_CUSTOM_ALLOCATOR)
-	return EMO_USE_CUSTOM_FREE(pointer);
-#elif defined(EMO_USE_BUILDIN_ALLOCATOR)
-#endif // defined(EMO_USE_STD_ALLOCATOR)
-}
-
-inline
-void operator delete[](void *pointer, Emo::EmoNewOperatorType)
+void emoDoFree(void *pointer)
 {
 #if   defined(EMO_USE_STD_ALLOCATOR)
 	::operator delete(pointer);
@@ -110,5 +77,46 @@ void operator delete[](void *pointer, Emo::EmoNewOperatorType)
 #elif defined(EMO_USE_BUILDIN_ALLOCATOR)
 #endif // defined(EMO_USE_STD_ALLOCATOR)
 }
+
+template <typename Type>
+inline
+void emoDestruct(Type *object)
+{
+	object->~Type();
+}
+
+#define EMO_NEW(TYPE) new(emoDoMalloc(sizeof(TYPE))) TYPE
+#define emoNew EMO_NEW
+
+template <typename Type>
+inline
+Type *emoAlloc()
+{
+	return new(emoDoMalloc(sizeof(Type))) Type();
+}
+
+template <typename Type>
+inline
+Type *emoAlloc(const Type &that)
+{
+	return new(emoDoMalloc(sizeof(Type))) Type(that);
+}
+
+template <typename Type>
+inline
+void emoDelete(Type *object)
+{
+	object->~object();
+	emoDoFree(object);
+}
+
+template <>
+inline
+void emoDelete<void>(void *object)
+{
+	emoDoFree(object);
+}
+
+EMO_END_NAMESPACE
 
 #endif // __EMO_MEMORY_H

@@ -18,21 +18,11 @@ License along with this library; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 /**
-\file emomemory.h
+\file emoconnectionlist.h
 \internal
 
-\~english \brief Declarations of operator for dynamic memory allocation.
+\~english \brief Declarations related to implementation of connection list.
 
-\~russian \brief Определения операторов для работы с динамической памятью.
-*/
-
-/**
-\def EMO_USE_STD_ALLOCATOR
-
-\~english \brief Turn LibEmo to use standard %new and %delete operators for
-dynamic memory allocation.
-
-\~russian \brief Переключает LibEmo на использование стандартных опреаторов
-%new и %delete для аллокации памяти.
+\~russian \brief Определениея, относящиеся к внутреннему предствалению списка соединений.
 */
 

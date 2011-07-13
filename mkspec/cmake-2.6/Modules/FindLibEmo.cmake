@@ -47,8 +47,7 @@ set(LIBEMO_DEFINITIONS ${PC_LIBEMO_CFLAGS_OTHER})
 
 find_path(LIBEMO_INCLUDE_DIR
        NAMES emodefs.h emotypes.h EmoSignal
-       HINTS ${PC_LIBEMO_INCLUDEDIR} ${PC_LIBEMO_INCLUDE_DIRS}
-       PATH_SUFFIXES Emo
+       HINTS ${PC_LIBEMO_INCLUDEDIR} ${PC_LIBEMO_INCLUDE_DIRS} ${EMO_HINT_INCLUDEDIR}
        DOC "LibEmo includes path"
 )
 
@@ -57,8 +56,8 @@ find_path(LIBEMO_INCLUDE_DIR
 #
 
 find_library(LIBEMO_LIBRARY
-       NAMES emo libEmo
-       HINTS ${PC_LIBEMO_LIBDIR} ${PC_LIBEMO_LIBRARY_DIRS}
+       NAMES libEmo.a emo
+       HINTS ${PC_LIBEMO_LIBDIR} ${PC_LIBEMO_LIBRARY_DIRS} ${EMO_HINT_LIBRARY}
        DOC "LibEmo library"
 )
 
@@ -70,6 +69,9 @@ find_library(LIBEMO_LIBRARY
 set (LIBEMO_LIBRARIES ${LIBEMO_LIBRARY})
 set (LIBEMO_INCLUDE_DIRS ${LIBEMO_INCLUDE_DIR})
 
+mark_as_advanced(LIBEMO_INCLUDE_DIRS LIBEMO_LIBRARIES)
+mark_as_advanced(LIBEMO_LIBRARY LIBEMO_INCLUDE_DIR)
+
 # Handle the QUIETLY and REQUIRED arguments and set LIBEMO_FOUND to TRUE
 # if all listed variables are TRUE
 include(FindPackageHandleStandardArgs)
@@ -78,9 +80,4 @@ find_package_handle_standard_args(LibEmo
        LIBEMO_LIBRARY
        LIBEMO_INCLUDE_DIR
 )
-
-
-
-mark_as_advanced(LIBEMO_INCLUDE_DIR LIBEMO_LIBRARY)
-
 

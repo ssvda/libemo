@@ -23,10 +23,15 @@
 # LibEmo library.
 #
 
-add_library(LibEmo
+add_library (Emo
        ${EMO_SOURCES}
        ${EMO_HEADERS}
        ${EMO_DOXYGEN_DOCUMENTATION}
 )
 
+#
+# Prepare for tests.
+#
 
+file (WRITE "${CMAKE_SOURCE_DIR}/test/BuildHints.cmake" "set (EMO_SOURCE_DIR \"${CMAKE_SOURCE_DIR}\")\n")
+file (APPEND "${CMAKE_SOURCE_DIR}/test/BuildHints.cmake" "set (EMO_BINARY_DIR \"${CMAKE_BINARY_DIR}\")\n")

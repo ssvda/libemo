@@ -24,22 +24,93 @@
 
 #include <emodefs.h>
 #include <emotypes.h>
+#include <emomemory.h>
+#include <emometacontainer.h>
 
 EMO_BEGIN_NAMESPACE
 
-template <bool dynamicalAllocation,
-          int staticalPreallocation,
-          int dynamicalPortion>
-class EmoSignalInternals
+// Forward declarations
+class EmoObject;
+class EmoSlotBase;
+
+/*
+	Задачи внутренностей сигнала:
+	 - Хранить список соединений в выбранной форме
+	 - Осуществлять вставку в список.
+	    bind()
+	 - Осуществлять удаление из списка.
+	    unbind()
+	    clear()
+	 - Осуществлять рассылку по всем элементам списка.
+	    emit()
+*/
+
+template <EmoAllocationType p_AllocationType,
+          unsigned int p_FirstPortion,
+          unsigned int p_ExtendPortion>
+class EmoSignalInternalsBaseс
 {
 public:
+	enum
+	{
+		AllocationType = p_AllocationType,
+		FirstPortion = p_FirstPortion,
+		ExtendPortion = p_ExtendPortion
+	};
 	
+protected:
+	typedef unsigned int ListStateType;
+	
+	struct ListExtend
+	{
+		EmoConnection m_list[ExtendPortion];
+		ListExtend *m_next;
+	};
+	
+	struct ListHead
+	{
+		ListStateType m_state;
+		EmoConnection m_list[FirstPortion];
+		ListExtend *m_next;
+	};
+	
+	typedef ListExtend *IterationState;
+	
+	inline
+	EmoConnection *allocate();
+	inline
+	void free(EmoConnection *connection);
+	inline
+	void iterate(IterationState *state);
+	inline
+	EmoConnection *next(IterationState *state);
+	
+public:
+	void clear();
 };
 
-typedef EmoSignalInternals<true, 2, 2> EmoDefaultSignalInternals;
-typedef EmoSignalInternals<false, 1, 1> EmoTinySignalInternals;
-typedef EmoSignalInternals<true, 0, 2> EmoDynamicalSignalInternals;
-typedef EmoSignalInternals<true, 4, 4> EmoHugeSignalInternals;
+template <EmoAllocationType p_AT,
+          unsigned int p_FP,
+          unsigned int p_EP>
+EmoConnection *EmoSignalInternalsBase<p_AT, p_FP, p_EP>::allocate()
+{
+	
+}
+
+template <EmoAllocationType p_AllocationType,
+          unsigned int p_FirstPortion,
+          unsigned int p_ExtendPortion>
+class EmoSignalInternals
+	:public EmoSignalInternalsBase<p_AllocationType, p_FirstPortion, p_ExtendPortion>
+{
+public:
+};
+
+typedef EmoSignalInternals<DynamicalAllocation, 2, 2>  EmoDefaultSignalInternals;
+typedef EmoSignalInternals<StaticalAllocation, 1, 1>   EmoTinySignalInternals;
+typedef EmoSignalInternals<DynamicalAllocation, 0, 2>  EmoDynamicalSignalInternals;
+typedef EmoSignalInternals<StaticalAllocation, 4, 0>   EmoStaticalSignalInternals;
+typedef EmoSignalInternals<DynamicalAllocation, 4, 4>  EmoHugeSignalInternals;
 
 EMO_END_NAMESPACE
 

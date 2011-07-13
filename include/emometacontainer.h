@@ -24,9 +24,19 @@
 
 #include <emodefs.h>
 #include <emotypes.h>
+#include <emomemory.h>
+
+EMO_BEGIN_NAMESPACE
+
+enum EmoAllocationType
+{
+	StaticalAllocation,
+	DynamicalAllocation,
+	SharedAllocation
+};
 
 template <typename ValueType,
-          bool useDynamicAllocation>
+          EmoAllocationType useDynamicAllocation>
 class EmoMetaContainer
 {
 private:
@@ -34,13 +44,13 @@ private:
 };
 
 template <typename ValueType>
-class EmoMetaContainer<ValueType, false>
+class EmoMetaContainer<ValueType, StaticalAllocation>
 {
 public:
 	typedef ValueType ElementType;
 	enum
 	{
-		DynamicAllocationAllowed = false
+		AllocationMethod = StaticalAllocation
 	};
 	
 	inline
@@ -70,27 +80,33 @@ private:
 };
 
 template <typename ValueType>
-class EmoMetaContainer<ValueType, true>
+class EmoMetaContainer<ValueType, DynamicalAllocation>
 {
 public:
 	typedef ValueType ElementType;
 	enum
 	{
-		DynamicAllocationAllowed = true
+		AllocationMethod = DynamicalAllocation
 	};
+	
+	inline
+	~EmoMetaContainer()
+	{
+		this->free();
+	}
 	
 	inline
 	void allocate()
 	{
 		if(this->m_element == 0)
-			this->m_element = new(EmoNewOperator) ElementType();
+			this->m_element = emoAlloc<ElementType>;
 	}
 	inline
 	void free()
 	{
 		if(this->m_element != 0)
 		{
-			delete(EmoNewOperator) this->m_element;
+			emoDelete(this->m_element);
 			this->m_element = 0;
 		}
 	}
@@ -102,11 +118,50 @@ public:
 	inline
 	ElementType &element()
 	{
+		if(this->m_element == 0)
+			this->allocate();
 		return *this->m_element;
 	}
 	
 private:
 	ElementType *m_element;
+};
+
+template <typename ValueType>
+class EmoMetaContainer<ValueType, SharedAllocation>
+{
+public:
+	typedef ValueType ElementType;
+	enum
+	{
+		AllocationMethod = SharedAllocation
+	};
+	
+	inline
+	EmoMetaContainer()
+		:m_element()
+	{}
+	
+	inline
+	void allocate()
+	{}
+	inline
+	void free()
+	{}
+	inline
+	bool allocated()
+	{
+		return true;
+	}
+	inline
+	ElementType &element()
+	{
+		return this->m_element;
+	}
+	
+private:
+	static
+	ElementType m_element;
 };
 
 EMO_END_NAMESPACE

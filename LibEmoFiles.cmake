@@ -32,6 +32,7 @@ set (EMO_CSTYLE_HEADERS_LIST
        emosignalbase.h
        emosignal.h
        emosignalinternals.h
+       emoconnectionlist.h
 )
 
 # General list of all Qt-style headers.
@@ -67,6 +68,7 @@ set (EMO_SOURCES_DOCUMENTATION_LIST
        emosignalbase.dox
        emosignal.dox
        emosignalinternals.dox
+       emoconnectionlist.dox
 )
 
 # Doxygen general documentation for whole library.

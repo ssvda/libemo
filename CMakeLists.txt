@@ -28,6 +28,7 @@ cmake_minimum_required (VERSION 2.6)
 # Default cmake behaviour will be selected for compatibility with version 2.6.
 cmake_policy (VERSION 2.6)
 
+set (CMAKE_ALLOW_LOOSE_LOOP_CONSTRUCTS TRUE)
 project (Emo)
 
 #
@@ -61,5 +62,3 @@ set (CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${EMO_CMAKE_FIND_DIR}")
 
 # This file contains general build rules for project.
 include (LibEmo.cmake)
-
-#add_subdirectory(test)
