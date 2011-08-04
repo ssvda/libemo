@@ -44,4 +44,4 @@ add_executable (${PROJECT_NAME}
        main.cpp
 )
 
-build_after_libemo (${PROJECT_NAME})
+target_link_libraries (${PROJECT_NAME} Emo)

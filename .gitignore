@@ -44,6 +44,9 @@ qrc_*.cpp
 *.bak
 *.backup
 
+### LibEmo specific files
+LibEmoConfig.cmake
+
 ### Ignore GCC's files
 *.o
 *.a
