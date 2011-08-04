@@ -44,4 +44,8 @@ add_executable (${PROJECT_NAME}
        main.cpp
 )
 
+target_link_libraries (${PROJECT_NAME}
+    ${LIBEMO_LIBRARY}
+)
+
 build_after_libemo (${PROJECT_NAME})

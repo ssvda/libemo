@@ -1,6 +1,6 @@
 #include <cppunit/ui/text/TestRunner.h>
 
-#include "Draft.h"
+#include "UnitTests.generated.h"
 
 int main()
 {
