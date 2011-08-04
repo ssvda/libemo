@@ -43,3 +43,5 @@ find_package (LibEmo REQUIRED)
 add_executable (${PROJECT_NAME}
        main.cpp
 )
+
+build_after_libemo (${PROJECT_NAME})

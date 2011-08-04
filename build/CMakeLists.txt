@@ -20,7 +20,7 @@
 ################################################################################
 
 #
-# General settings.
+# General CMake settings.
 #
 
 # Minimal required version of cmake.
@@ -28,37 +28,24 @@ cmake_minimum_required (VERSION 2.6)
 # Default cmake behaviour will be selected for compatibility with version 2.6.
 cmake_policy (VERSION 2.6)
 
-set (CMAKE_ALLOW_LOOSE_LOOP_CONSTRUCTS TRUE)
-project (Emo)
-
 #
-# LibEmo version information.
+# LibEmo project settings.
 #
 
-set (LibEmo_MAJOR 0)
-set (LibEmo_MINOR 0)
+# Project name and language.
+project (EMO CXX)
+# Major provect version.
+set (EMO_MAJOR 0)
+# Minor provect version.
+set (EMO_MINOR 0)
 
 #
 # LibEmo configuration.
 #
 
-# Use this file adjust configuration of you build of LibEmo.
+# Use this file adjust configuration of you build of LibEmo by some injections.
 # You can use LibEmoConfig.cmake.example file as template.
 include (LibEmoConfig.cmake OPTIONAL)
-
-#
-# Project files list.
-#
-
-# This file contains list of all sources files in project.
-include (LibEmoFiles.cmake)
-
-#
-# Project build rules.
-#
-
-# Adjust CMake to search find-package in local tree.
-set (CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${EMO_CMAKE_FIND_DIR}")
 
 # This file contains general build rules for project.
 include (LibEmo.cmake)

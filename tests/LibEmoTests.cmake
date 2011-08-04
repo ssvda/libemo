@@ -19,26 +19,4 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 ################################################################################
 
-#
-# General settings.
-#
-
-# Minimal required version of cmake.
-cmake_minimum_required (VERSION 2.6)
-# Default cmake behaviour will be selected for compatibility with version 2.6.
-cmake_policy (VERSION 2.6)
-
-project (LibEmoTests)
-
-include (BuildHints.cmake OPTIONAL)
-set (EMO_HINT_INCLUDEDIR "${EMO_SOURCE_DIR}/include")
-set (EMO_HINT_LIBRARY "${EMO_BINARY_DIR}")
-
-set (CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/../mkspec/cmake-2.6/Modules")
-
-#
-# Test list.
-#
-
-# This file contains instructions to build and run tests in build-time.
-include (LibEmoTests.cmake)
+add_emo_test (FindLibEmo)

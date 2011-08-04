@@ -20,18 +20,19 @@
 ################################################################################
 
 #
-# LibEmo library.
+# General settings.
 #
 
-add_library (Emo
-       ${EMO_SOURCES}
-       ${EMO_HEADERS}
-       ${EMO_DOXYGEN_DOCUMENTATION}
-)
+# Minimal required version of cmake.
+cmake_minimum_required (VERSION 2.6)
+# Default cmake behaviour will be selected for compatibility with version 2.6.
+cmake_policy (VERSION 2.6)
+
+project (LibEmoTests)
 
 #
-# Prepare for tests.
+# Test list.
 #
 
-file (WRITE "${CMAKE_SOURCE_DIR}/test/BuildHints.cmake" "set (EMO_SOURCE_DIR \"${CMAKE_SOURCE_DIR}\")\n")
-file (APPEND "${CMAKE_SOURCE_DIR}/test/BuildHints.cmake" "set (EMO_BINARY_DIR \"${CMAKE_BINARY_DIR}\")\n")
+# This file contains instructions to build and run tests in build-time.
+include (LibEmoTests.cmake)
