@@ -30,9 +30,29 @@ cmake_policy (VERSION 2.6)
 
 project (LibEmoTests)
 
+
+find_package (LibEmo REQUIRED)
+find_package (CppUnit REQUIRED)
+
 #
 # Test list.
 #
 
-# This file contains instructions to build and run tests in build-time.
+# This file contains description of all tests.
 include (LibEmoTests.cmake)
+
+foreach (EMO_TEST_NAMES_ITER ${EMO_TEST_NAMES})
+    include (${EMO_TEST_NAMES_ITER}.cmake OPTIONAL)
+endforeach ()
+
+include_directories(SYSTEM ${LIBEMO_INCLUDE_DIR})
+include_directories(SYSTEM ${CPPUNIT_INCLUDE_DIR})
+
+add_executable (${PROJECT_NAME}
+       tests.cpp
+       ${EMO_TEST_CLASSES}
+)
+add_library (${PROJECT_NAME}
+       ${CPPUNIT_LIBRARY}
+)
+add_dependencies (${PROJECT_NAME} Emo)
