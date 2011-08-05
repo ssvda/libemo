@@ -19,13 +19,15 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 ################################################################################
 
+#
+# Include each subdirectory
+#
 
-file(GLOB sub-dir RELATIVE "./" *)
-set(list_of_dirs "")
+file(GLOB sub-dir RELATIVE "" *)
 foreach(dir ${sub-dir})
     if(IS_DIRECTORY ${dir})
-        add_emo_test ("FindLibEmo")
+        add_emo_test (${dir})
     endif()
 endforeach()
 
-include ("UnitTests.cmake")
+generate_unit_test ()

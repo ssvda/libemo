@@ -1,28 +1,31 @@
 #include <cppunit/TestFixture.h>
 #include <cppunit/extensions/HelperMacros.h>
 
-class EmptyCppUnitTestMyTest : public CppUnit::TestFixture
+#define UNITTEST_NAME EmptyCppUnitTestMyTest
+
+class UNITTEST_NAME : public CppUnit::TestFixture
 {
-   CPPUNIT_TEST_SUITE(EmptyCppUnitTestMyTest);
-   CPPUNIT_TEST(emptyTest);
-   CPPUNIT_TEST_SUITE_END();
+	CPPUNIT_TEST_SUITE(UNITTEST_NAME);
+	CPPUNIT_TEST(emptyTest);
+	CPPUNIT_TEST_SUITE_END();
 public:
 
-   void setUp()
-   {
-       // инициализация
-   }
+	void setUp()
+	{
+	   // инициализация
+	}
 
-   void tearDown()
-   {
-       // деинициализация
-   }
+	void tearDown()
+	{
+	   // деинициализация
+	}
 
-   void emptyTest()
-   {
-       CPPUNIT_ASSERT(true);
-   }
-
+	void emptyTest()
+	{
+	   CPPUNIT_ASSERT(true);
+	}
 };
 
-CPPUNIT_TEST_SUITE_REGISTRATION(EmptyCppUnitTestMyTest);
+static CPPUNIT_NS::AutoRegisterSuite<UNITTEST_NAME> CPPUNIT_JOIN(test,UNITTEST_NAME);
+
+#undef UNITTEST_NAME
