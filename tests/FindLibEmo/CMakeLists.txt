@@ -28,37 +28,20 @@ cmake_minimum_required (VERSION 2.6)
 # Default cmake behaviour will be selected for compatibility with version 2.6.
 cmake_policy (VERSION 2.6)
 
-set (CMAKE_ALLOW_LOOSE_LOOP_CONSTRUCTS TRUE)
-project (Emo)
+project (FindLibEmo)
 
 #
-# LibEmo version information.
+# Adding LibEmo.
 #
 
-set (LibEmo_MAJOR 0)
-set (LibEmo_MINOR 0)
+find_package (LibEmo REQUIRED)
 
 #
-# LibEmo configuration.
+# Defenitions.
 #
 
-# Use this file adjust configuration of you build of LibEmo.
-# You can use LibEmoConfig.cmake.example file as template.
-include (LibEmoConfig.cmake OPTIONAL)
+add_executable (${PROJECT_NAME}
+       main.cpp
+)
 
-#
-# Project files list.
-#
-
-# This file contains list of all sources files in project.
-include (LibEmoFiles.cmake)
-
-#
-# Project build rules.
-#
-
-# Adjust CMake to search find-package in local tree.
-set (CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${EMO_CMAKE_FIND_DIR}")
-
-# This file contains general build rules for project.
-include (LibEmo.cmake)
+target_link_libraries (${PROJECT_NAME} Emo)

@@ -20,18 +20,14 @@
 ################################################################################
 
 #
-# LibEmo library.
+# Include each subdirectory
 #
 
-add_library (Emo
-       ${EMO_SOURCES}
-       ${EMO_HEADERS}
-       ${EMO_DOXYGEN_DOCUMENTATION}
-)
+file(GLOB sub-dir RELATIVE "" *)
+foreach(dir ${sub-dir})
+    if(IS_DIRECTORY ${dir})
+        add_emo_test (${dir})
+    endif()
+endforeach()
 
-#
-# Prepare for tests.
-#
-
-file (WRITE "${CMAKE_SOURCE_DIR}/test/BuildHints.cmake" "set (EMO_SOURCE_DIR \"${CMAKE_SOURCE_DIR}\")\n")
-file (APPEND "${CMAKE_SOURCE_DIR}/test/BuildHints.cmake" "set (EMO_BINARY_DIR \"${CMAKE_BINARY_DIR}\")\n")
+generate_unit_test ()

@@ -20,7 +20,7 @@
 ################################################################################
 
 #
-# General settings.
+# General CMake settings.
 #
 
 # Minimal required version of cmake.
@@ -28,17 +28,24 @@ cmake_minimum_required (VERSION 2.6)
 # Default cmake behaviour will be selected for compatibility with version 2.6.
 cmake_policy (VERSION 2.6)
 
-project (LibEmoTests)
-
-include (BuildHints.cmake OPTIONAL)
-set (EMO_HINT_INCLUDEDIR "${EMO_SOURCE_DIR}/include")
-set (EMO_HINT_LIBRARY "${EMO_BINARY_DIR}")
-
-set (CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/../mkspec/cmake-2.6/Modules")
-
 #
-# Test list.
+# LibEmo project settings.
 #
 
-# This file contains instructions to build and run tests in build-time.
-include (LibEmoTests.cmake)
+# Project name and language.
+project (EMO CXX)
+# Major provect version.
+set (EMO_MAJOR 0)
+# Minor provect version.
+set (EMO_MINOR 0)
+
+#
+# LibEmo configuration.
+#
+
+# Use this file adjust configuration of you build of LibEmo by some injections.
+# You can use LibEmoConfig.cmake.example file as template.
+include (LibEmoConfig.cmake OPTIONAL)
+
+# This file contains general build rules for project.
+include (LibEmo.cmake)

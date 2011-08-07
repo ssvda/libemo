@@ -19,27 +19,6 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 ################################################################################
 
-#
-# General settings.
-#
-
-# Minimal required version of cmake.
-cmake_minimum_required (VERSION 2.6)
-# Default cmake behaviour will be selected for compatibility with version 2.6.
-cmake_policy (VERSION 2.6)
-
-project (FindLibEmo)
-
-#
-# Adding LibEmo.
-#
-
-find_package (LibEmo REQUIRED)
-
-#
-# Defenitions.
-#
-
-add_executable (${PROJECT_NAME}
-       main.cpp
+set(EMO_TEST_NAMES
+    "Draft"
 )

@@ -1,0 +1,8 @@
+### Ignore CMake files
+
+CMakeCache.txt
+CMakeFiles
+Makefile
+tests
+cmake_install.cmake
+EMO.cbp
