@@ -20,19 +20,14 @@
 ################################################################################
 
 #
-# General settings.
+# Include each subdirectory
 #
 
-# Minimal required version of cmake.
-cmake_minimum_required (VERSION 2.6)
-# Default cmake behaviour will be selected for compatibility with version 2.6.
-cmake_policy (VERSION 2.6)
+file(GLOB sub-dir RELATIVE "" *)
+foreach(dir ${sub-dir})
+    if(IS_DIRECTORY ${dir})
+        add_emo_test (${dir})
+    endif()
+endforeach()
 
-project (LibEmoTests)
-
-#
-# Test list.
-#
-
-# This file contains instructions to build and run tests in build-time.
-include (LibEmoTests.cmake)
+generate_unit_test ()
