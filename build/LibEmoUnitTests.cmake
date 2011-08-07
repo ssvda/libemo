@@ -25,15 +25,15 @@
 #
 
 macro (register_unit_test)
-    set (EMO_INTERN_ARGV ${ARGV})
-    EmoInternBuildFullPathedList (EMO_INTERN_UNITTESTS_FILES EMO_INTERN_ARGV "${CMAKE_CURRENT_SOURCE_DIR}")
+	set (EMO_INTERN_ARGV ${ARGV})
+	EmoInternBuildFullPathedList (EMO_INTERN_UNITTESTS_FILES EMO_INTERN_ARGV "${CMAKE_CURRENT_SOURCE_DIR}")
 # Add to list of requred files
-    list (APPEND EMO_UNITTESTS_FILES ${EMO_INTERN_UNITTESTS_FILES})
-    list (GET EMO_INTERN_UNITTESTS_FILES 0 EMO_INTERN_UNITTEST_NAME)
+	list (APPEND EMO_UNITTESTS_FILES ${EMO_INTERN_UNITTESTS_FILES})
+	list (GET EMO_INTERN_UNITTESTS_FILES 0 EMO_INTERN_UNITTEST_NAME)
 # Add to list of fixtures
-    list (APPEND EMO_UNITTESTS_FIXTURES ${EMO_INTERN_UNITTEST_NAME})
-    set (EMO_UNITTESTS_FILES ${EMO_UNITTESTS_FILES} PARENT_SCOPE)
-    set (EMO_UNITTESTS_FIXTURES ${EMO_UNITTESTS_FIXTURES} PARENT_SCOPE)
+	list (APPEND EMO_UNITTESTS_FIXTURES ${EMO_INTERN_UNITTEST_NAME})
+	set (EMO_UNITTESTS_FILES ${EMO_UNITTESTS_FILES} PARENT_SCOPE)
+	set (EMO_UNITTESTS_FIXTURES ${EMO_UNITTESTS_FIXTURES} PARENT_SCOPE)
 endmacro (register_unit_test)
 
 
@@ -45,7 +45,7 @@ macro (generate_unit_test)
 
 # Generate header with all UnitTest fixtures
 foreach (EMO_INTERN_H_ITEM ${EMO_UNITTESTS_FIXTURES})
-    list (APPEND EMO_INTERN_H "#include \"${EMO_INTERN_H_ITEM}\"\n")
+	list (APPEND EMO_INTERN_H "#include \"${EMO_INTERN_H_ITEM}\"\n")
 endforeach (EMO_INTERN_H_ITEM)
 file (WRITE "UnitTests.generated.h" ${EMO_INTERN_H})
 
@@ -60,14 +60,14 @@ find_package (CppUnit REQUIRED)
 include_directories(SYSTEM ${CPPUNIT_INCLUDE_DIR})
 
 add_executable (${PROJECT_NAME}
-    tests.cpp
-    ${EMO_UNITTESTS_FILES}
+	tests.cpp
+	${EMO_UNITTESTS_FILES}
 )
 
 # Add dependency from Emo and CppUnit
 target_link_libraries (${PROJECT_NAME}
-    ${CPPUNIT_LIBRARY}
-    Emo
+	${CPPUNIT_LIBRARY}
+	Emo
 )
 
 endmacro (generate_unit_test)

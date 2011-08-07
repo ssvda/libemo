@@ -61,7 +61,7 @@ include (LibEmoFiles.cmake)
 #
 
 macro (EmoInternBuildFullPathedList TARGET_VAR SOURCE_VAR PREFIX_DIR)
-    foreach (EMO_INTERN_FILENAME ${${SOURCE_VAR}})
+	foreach (EMO_INTERN_FILENAME ${${SOURCE_VAR}})
 		list (APPEND ${TARGET_VAR} "${PREFIX_DIR}/${EMO_INTERN_FILENAME}")
 	endforeach (EMO_INTERN_FILENAME)
 endmacro (EmoInternBuildFullPathedList)
@@ -155,7 +155,11 @@ add_custom_target(doc
 # Special distclean target.
 #
 
+# NOTE Possible, using of CMAKE_BUILD_TOOL is not correct for all build systems.
+#      We need to check it... somewhen...
+
 add_custom_target(distclean
+	COMMAND "${CMAKE_BUILD_TOOL}" clean
 	COMMAND "${CMAKE_COMMAND}" -E remove -f ${EMO_DOX_CONFIGS}
 	COMMAND "${CMAKE_COMMAND}" -E remove_directory "${EMO_ROOT_DIR}/CMakeFiles"
 	COMMAND "${CMAKE_COMMAND}" -E remove -f "${EMO_ROOT_DIR}/CMakeCache.txt"
