@@ -32,7 +32,6 @@ set (EMO_CSTYLE_HEADERS_LIST
 	emosignalbase.h
 	emosignal.h
 	emosignalinternals.h
-	emoconnectionlist.h
 )
 
 # General list of all Qt-style headers.
