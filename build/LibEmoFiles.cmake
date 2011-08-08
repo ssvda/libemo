@@ -68,4 +68,5 @@ set (EMO_SOURCES_DOX_LIST
 # Doxygen general documentation for whole library.
 set (EMO_GENERAL_DOX_LIST
 	intro.dox
+	codecovenants.dox
 )
