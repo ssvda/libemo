@@ -110,7 +110,7 @@ fi
 if [ $INTERNAL -eq 1 ]
 then
 	INTERNAL_INC='\internal
-	'
+'
 else
 	INTERNAL_INC=''
 fi
@@ -204,9 +204,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 /**
 $INTERNAL_INC\\file $LCNAME.h
 
-\~english \brief Declarations of operator for dynamic memory allocation.
+\~english \brief 
 
-\~russian \brief Определения операторов для работы с динамической памятью.
+\~russian \brief 
 */
 
 "
