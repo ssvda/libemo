@@ -38,5 +38,100 @@ number of bits.
 целочисленный тип.
 
 \~english
-Sometimes
+\param NumberOfBits Minimal number of bits which must contained in number.
+
+Optimization of memory usage is not so important for small number of objects.
+But when number of objects begun to increase, each superfluous byte become
+so significant.
+
+This class provide a method to optimize data types for actual values they
+must store.
+
+For example, you must contain only 4 bits in some integer. Optimal size
+of such integer is 1 byte (or 8 bits). If you should write 27 bits in some
+other number, then it should be at least 27 bits. Nearest size is 4 bytes
+(32 bits).
+
+This class applicatable only in templates and macro-defenitions becouse
+\p NumberOfBits must be explicit constant value. You can use it
+in such manner:
+
+\~russian
+\param NumberOfBits Минимальное число бит, которое должно содержаться в
+числе.
+
+Оптимизация использования памят не столь критична для малого числа объектов,
+но когда число объектов начинает рости, каждый лишний байт становится столь
+важным.
+
+Этот класс предоставляет метод для подгонки типов даннных под значения,
+которые в действительности должны в них храниться.
+
+Например, необходимо сохранить только 4 битные значения в нектором целом.
+Наиболее подходящий для этого размер целого --- 1 байт (8 бит). Для записи в
+число 27 битов в нём \em должно быть по крайней мере 27 бит. Ближайшее
+поддерживаемое целое --- 4-х байтое (32 бита).
+
+Этот класс может применяться только в шаблонах и макроопределениях
+т.к. \p NumberOfBits должно быть константой времени компиляции.
+Класс может быть использован примерно так:
+
+\~
+\code
+	typedef Emo::Intern::EmoBestFitInt<14>::Type TheBestFittingTypeFor14Bits;
+\endcode
+
+\~english
+\c TheBestFittingTypeFor14Bits is smallest available type, which can store 14 bits.
+
+You can adjust its behaviour to consider platform specific by selecting
+minimal limit for data type. For example, you can select \c short \c int as minimal
+data type for best fitting. In this case best-fit type would not less then
+\c short \c int in any way.
+
+Minimal limit for best-fitting data type determined by
+\ref EMO_LIMIT_BEST_FIT_INT_WITH macro.
+
+\~russian
+Теперь \c TheBestFittingTypeFor14Bits --- наименьший из доступных целочисленный
+тип, достаточный для хранения 14 бит.
+
+Вы можете подогнать поведение класса под специфику используемой платформы,
+ограничив тип данных снизу. Например, если выбрать \c short \c int в качестве
+ограничивающего типа, наиболее подходящий тип никогда не будет меньше
+\c short \c int.
+
+Ограничение наиболее подходящего типа определяется макросом
+\ref EMO_LIMIT_BEST_FIT_INT_WITH.
+
+\~
+\see EMO_BEST_FIT_INT, EMO_LIMIT_BEST_FIT_INT_WITH
 */
+
+/**
+\internal
+\def EMO_BEST_FIT_INT
+
+\~english \brief Compile-time best-fit integer selector.
+
+\~russian \brief Средство для выбора наиболее подходящего целочисленного типа
+на этапе компиляции.
+
+\~english
+\param BITS Minimal number of bits which must contained in number.
+
+This macro substituted by smallest available integer data type that can store
+\p BITS bits numbers.
+
+\~russian
+\param BITS Минимальное число бит, которое должно содержаться в
+числе.
+
+Этот макрос заменяется на наименьший из доступных целочисленных типов,
+способных хранить число, содержащее \p BITS бит.
+
+\~
+\see Emo::Intern::EmoBestFitInt, EMO_LIMIT_BEST_FIT_INT_WITH,
+EMO_FORCE_BEST_FIT_INT_TO
+*/
+

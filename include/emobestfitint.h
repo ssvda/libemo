@@ -56,17 +56,12 @@ private:
 	};
 	
 	// Series of comporations.
-	//typedef typename EmoTypifiedIf<(BitsX > BitsD), TypeC, TypeD>::Type Step1Type;
-	//typedef typename EmoTypifiedIf<(BitsX > BitsC), TypeB, Step1Type>::Type Step2Type;
-	//typedef typename EmoTypifiedIf<(BitsX > BitsB), TypeA, Step2Type>::Type Step3Type;
-	//typedef typename EmoTypifiedIf<(BitsX > BitsA), void, Step3Type>::Type BestFitType;
-	
 	typedef typename EMO_TYPIFIED_IF(BitsX > BitsD, TypeC, TypeD)     Step1Type;
 	typedef typename EMO_TYPIFIED_IF(BitsX > BitsC, TypeB, Step1Type) Step2Type;
 	typedef typename EMO_TYPIFIED_IF(BitsX > BitsB, TypeA, Step2Type) Step3Type;
 	
 public:
-	typedef typename EMO_TYPIFIED_IF(BitsX > BitsA, void, Step3Type) BestFitType;
+	typedef typename EMO_TYPIFIED_IF(BitsX > BitsA, void, Step3Type) Type;
 };
 
 EMO_END_INTERNAL_NAMESPACE
@@ -74,7 +69,7 @@ EMO_END_INTERNAL_NAMESPACE
 EMO_END_NAMESPACE
 
 #ifndef EMO_FORCE_BEST_FIT_INT_TO
-#	define EMO_BEST_FIT_INT(BITS) Emo::Intern::EmoBestFitInt<BITS>::BestFitType
+#	define EMO_BEST_FIT_INT(BITS) Emo::Intern::EmoBestFitInt<BITS>::Type
 #else // EMO_FORCE_BEST_FIT_INT_TO
 #define EMO_BEST_FIT_INT(BITS) EMO_FORCE_BEST_FIT_INT_TO
 #endif // EMO_FORCE_BEST_FIT_INT_TO
