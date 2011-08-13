@@ -19,23 +19,24 @@
 	Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-#ifndef __EMO_TYPES_H
-#define __EMO_TYPES_H
+#ifndef __EMO_CONNECTION_H
+#define __EMO_CONNECTION_H
 
 #include <emodefs.h>
 
 EMO_BEGIN_NAMESPACE
 
-typedef unsigned int EmoSizeType;
-typedef signed int EmoDifferenceType;
-typedef int EmoBusFitInt;
+// Forward declarations:
+class EmoObject;
+class EmoSlotBase;
 
-typedef int EmoInt;
-typedef unsigned char EmoByte;
-typedef bool EmoBool;
-
-// TODO Define all field in basic structs.
+class EmoConnection
+{
+	EmoObject *m_object;
+	EmoSlotBase *m_slot;
+};
 
 EMO_END_NAMESPACE
 
-#endif // __EMO_TYPES_H
+#endif // __EMO_CONNECTION_H
+

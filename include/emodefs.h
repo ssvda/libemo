@@ -27,6 +27,9 @@
 #	define EMO_BEGIN_NAMESPACE
 #	define EMO_END_NAMESPACE
 
+#	define EMO_BEGIN_INTERNAL_NAMESPACE
+#	define EMO_END_INTERNAL_NAMESPACE
+
 #	define EMO_C_STRUCT(NAME) \
 		struct NAME; \
 		typedef struct NAME NAME;
@@ -38,6 +41,9 @@
 #	define EMO_BEGIN_NAMESPACE namespace Emo {
 #	define EMO_END_NAMESPACE }
 
+#	define EMO_BEGIN_INTERNAL_NAMESPACE namespace Intern {
+#	define EMO_END_INTERNAL_NAMESPACE }
+
 #	define EMO_C_STRUCT(NAME)
 #	define EMO_EXTERN_C
 #	if defined(EMO_WITH_TRUE_INLINE) || defined(__GNUC__)
@@ -46,5 +52,13 @@
 #endif
 
 #endif // __cplusplus
+
+#ifndef EMO_BITS_IN_TYPE
+#	define EMO_BITS_IN_TYPE(TYPE) (8 * sizeof(TYPE))
+#endif //EMO_BITS_IN_TYPE
+
+#ifndef EMO_BUS_WIDTH
+#	define EMO_BUS_WIDTH EMO_BITS_IN_TYPE(int)
+#endif // EMO_BUS_WIDTH
 
 #endif // __EMO_DEFS_H

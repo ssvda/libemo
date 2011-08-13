@@ -1,0 +1,135 @@
+Embeded Meta Objects (EMO) Library
+
+Copyright (C) 2011  Dmitry A. Sysoev
+Copyright (C) 2011  Yuri O. Nuzhdin
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+
+/**
+\internal
+\file emotypifiedif.h
+
+\~english \brief Provide defenitions for conditional operations ot types.
+
+\~russian \brief Предоставляет определения для выполнения условных операций
+над типами данных.
+*/
+
+/**
+\internal
+\class Emo::Intern::EmoTypifiedIf
+
+\~english \brief Template for conditional selection of types.
+
+\~russian \brief Шаблон для условного выбора типов.
+
+\~english
+\param Condition Boolean constant value.
+\param TypeIfTrue Type to use if \p Condition is \c true.
+\param TypeIfFalse Type to use if \p Condition is \c false.
+
+Standard C++ (and C) allow you to write constant expressions. Such shall be
+calculated at compile-time. Type of whole expression determines from
+it's operands.
+
+This feature allow us to write something like
+
+\~russian
+\param Condition Константное логическое выражение.
+\param TypeIfTrue Тип, используемый когда выражение \p Condition верно.
+\param TypeIfFalse Тип, используемый когда выражение \p Condition не верно.
+
+Стандартный C++ (и C) позволяют записывать константные выражения. Такие
+выражения должны быть вычесленны на этапе компиляции. Тип всего выражения
+определяется на основе его операндов.
+
+Эта возможность позволяет писать что-то вроде
+
+\~
+\code
+	(sizeof(SomeType) > sizeof(int) ? sizeof(SomeType) : sizeof(SomeType) + 1)
+\endcode
+
+\~english
+Don't matter what it's mean. Such constructions just allowed and mostly useful.
+
+This class allow you to write constant conditions having \em type as result.
+You can do it in such manner:
+
+\~russian
+Не важно что это значит. Важно, что такие конструкции допустимы и весьма
+полезны.
+
+Этот класс позволяет записывать константные выражения, результатом которых
+является \em тип. Это можно делать примерно таким образом:
+
+\~
+\code
+	Emo::Intern::EmoTypifiedIf<(sizeof(SomeType) > sizeof(int)), SomeType, int>::Type var;
+\endcode
+
+\~english
+Type of variable \c var depend on result of comporation of \c SomeType size with
+\c int size.
+
+\~russian
+Тип переменной \c var будет зависить от результата сравнения размеров типов
+\c SomeType и \c int.
+
+\~
+\see EMO_TYPIFIED_IF
+*/
+
+/**
+\internal
+\def EMO_TYPIFIED_IF
+
+\~english \brief Compile-time conditional select of type.
+
+\~russian \brief Условный выбор типа на этапе компиляции.
+
+\~english
+\param CONDITION Boolean constant value.
+\param TYPEIFTRUE Type to use if \p CONDITION is \c true.
+\param TYPEIFFALSE Type to use if \p CONDITION is \c false.
+
+This macro is warp around \ref Emo::Intern::EmoTypifiedIf class. It's
+allow to select datatype in depend on constant boolean condition \p CONDITION.
+You can use it just in such manner:
+
+\~russian
+\param CONDITION Константное логическое выражение.
+\param TYPEIFTRUE Тип, используемый когда выражение \p CONDITION верно.
+\param TYPEIFFALSE Тип, используемый когда выражение \p CONDITION не верно.
+
+Этот макрос сделан как обёртка вокруг класса \ref Emo::Intern::EmoTypifiedIf.
+Он позволяет выбирать тип данных в зависимости от значения константного
+логического выражения \p CONDITION. Макрос можно использовать примерно так:
+
+\~
+\code
+	EMO_TYPIFIED_IF(sizeof(SomeType) > sizeof(int), SomeType, int) var;
+\endcode
+
+\~english
+Type of variable \c var depend on result of comporation of \c SomeType size with
+\c int size.
+
+\~russian
+Тип переменной \c var будет зависить от результата сравнения размеров типов
+\c SomeType и \c int.
+
+\ref Emo::Intern::EmoTypifiedIf
+*/

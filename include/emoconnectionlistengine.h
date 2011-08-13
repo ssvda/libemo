@@ -19,23 +19,40 @@
 	Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-#ifndef __EMO_TYPES_H
-#define __EMO_TYPES_H
+#ifndef __EMO_CONNECTIONLISTENGINE_H
+#define __EMO_CONNECTIONLISTENGINE_H
 
 #include <emodefs.h>
+#include <emotypes.h>
+#include <emoconnection.h>
 
 EMO_BEGIN_NAMESPACE
 
-typedef unsigned int EmoSizeType;
-typedef signed int EmoDifferenceType;
-typedef int EmoBusFitInt;
+template <EmoBool IsItWiderThanBus>
+class EmoConnectionListEngine
+{
+};
 
-typedef int EmoInt;
-typedef unsigned char EmoByte;
-typedef bool EmoBool;
-
-// TODO Define all field in basic structs.
+template <>
+class EmoConnectionListEngine<false>
+{
+public:
+	template <EmoSizeType NumberOfItems>
+	class Buffer
+	{
+	private:
+		EmoInt
+	};
+	
+	static
+	EmoConnection *allocate(EmoConnection *list,
+	                        EmoSizeType listSize);
+	
+private:
+	EmoConnectionListEngine();
+};
 
 EMO_END_NAMESPACE
 
-#endif // __EMO_TYPES_H
+#endif // __EMO_CONNECTIONLISTENGINE_H
+

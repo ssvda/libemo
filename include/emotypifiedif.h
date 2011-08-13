@@ -19,23 +19,43 @@
 	Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-#ifndef __EMO_TYPES_H
-#define __EMO_TYPES_H
+#ifndef __EMO_TYPIFIEDIF_H
+#define __EMO_TYPIFIEDIF_H
 
 #include <emodefs.h>
+#include <emotypes.h>
 
 EMO_BEGIN_NAMESPACE
 
-typedef unsigned int EmoSizeType;
-typedef signed int EmoDifferenceType;
-typedef int EmoBusFitInt;
+EMO_BEGIN_INTERNAL_NAMESPACE
 
-typedef int EmoInt;
-typedef unsigned char EmoByte;
-typedef bool EmoBool;
+template <EmoBool Condition,
+          typename TypeIfTrue,
+          typename TypeIfFalse>
+struct EmoTypifiedIf
+{
+};
 
-// TODO Define all field in basic structs.
+template <typename TypeIfTrue,
+          typename TypeIfFalse>
+struct EmoTypifiedIf<true, TypeIfTrue, TypeIfFalse>
+{
+	typedef TypeIfTrue Type;
+};
+
+template <typename TypeIfTrue,
+          typename TypeIfFalse>
+struct EmoTypifiedIf<false, TypeIfTrue, TypeIfFalse>
+{
+	typedef TypeIfFalse Type;
+};
+
+EMO_END_INTERNAL_NAMESPACE
 
 EMO_END_NAMESPACE
 
-#endif // __EMO_TYPES_H
+#define EMO_TYPIFIED_IF(CONDITION,TYPEIFTRUE,TYPEIFFALSE) \
+		Emo::Intern::EmoTypifiedIf<(CONDITION), TYPEIFTRUE, TYPEIFFALSE >::Type
+
+#endif // __EMO_TYPIFIEDIF_H
+

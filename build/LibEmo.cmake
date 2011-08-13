@@ -147,8 +147,12 @@ endforeach (EMO_INTERN_LANG)
 
 # Add target for all languages.
 add_custom_target(doc
-	DEPENDS ${EMO_DOX_LANGUAGES_DEPS}
 	SOURCES "${EMO_ROOT_DIR}/Doxyfile" ${EMO_DOX}
+)
+
+# Add dependencies for documentation trget.
+add_dependencies (doc
+	${EMO_DOX_LANGUAGES_DEPS}
 )
 
 #
