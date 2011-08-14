@@ -92,6 +92,8 @@ add_library (Emo
 	${EMO_SOURCES}
 )
 
+include_directories (SYSTEM "${EMO_HEADER_DIR}")
+
 #
 # Documentation target.
 #
