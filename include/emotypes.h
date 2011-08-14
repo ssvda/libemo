@@ -30,6 +30,7 @@ typedef unsigned int EmoSizeType;
 typedef signed int EmoDifferenceType;
 typedef int EmoBusFitInt;
 
+typedef long EmoLong;
 typedef int EmoInt;
 typedef unsigned char EmoByte;
 typedef bool EmoBool;

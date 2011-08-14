@@ -53,12 +53,29 @@
 
 #endif // __cplusplus
 
+#ifndef EMO_BITS_IN_BYTES
+#	define EMO_BITS_IN_BYTES(BYTES) (8 * (BYTES))
+#endif //EMO_BITS_IN_BYTES
+
 #ifndef EMO_BITS_IN_TYPE
-#	define EMO_BITS_IN_TYPE(TYPE) (8 * sizeof(TYPE))
+#	define EMO_BITS_IN_TYPE(TYPE) (EMO_BITS_IN_BYTES(sizeof(TYPE)))
 #endif //EMO_BITS_IN_TYPE
 
 #ifndef EMO_BUS_WIDTH
-#	define EMO_BUS_WIDTH EMO_BITS_IN_TYPE(int)
+#	define EMO_BUS_WIDTH (EMO_BITS_IN_TYPE(int))
 #endif // EMO_BUS_WIDTH
+
+#if defined(EMO_CUSTOM_ASSERT)
+#	define EMO_DO_ASSERT(COND) EMO_CUSTOM_ASSERT(COND)
+#else // defined(EMO_CUSTOM_ASSERT)
+#	include <cassert>
+#	define EMO_DO_ASSERT(COND) assert(COND)
+#endif // defined(EMO_CUSTOM_ASSERT)
+
+#if defined(EMO_DEBUG)
+#	define EMO_ASSERT(COND) EMO_DO_ASSERT(COND)
+#else // defined(EMO_DEBUG)
+#	define EMO_ASSERT(COND) static_cast<void>(0);
+#endif // defined(EMO_DEBUG)
 
 #endif // __EMO_DEFS_H
