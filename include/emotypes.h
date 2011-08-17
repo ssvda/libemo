@@ -32,6 +32,8 @@ typedef int EmoBusFitInt;
 
 typedef long EmoLong;
 typedef int EmoInt;
+typedef unsigned long EmoULong;
+typedef unsigned int EmoUInt;
 typedef unsigned char EmoByte;
 typedef bool EmoBool;
 
