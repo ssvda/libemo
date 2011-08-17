@@ -85,7 +85,7 @@ private:
 			EMO_GENERIC_FLS_ELEMENTARY_CELL(64, 2);
 			EMO_GENERIC_FLS_ELEMENTARY_CELL(64, 1);
 			
-			return b;
+			return b - 1;
 		}
 		static inline
 		Integer genericFfs(Integer v)
@@ -135,7 +135,7 @@ private:
 			EMO_GENERIC_FLS_ELEMENTARY_CELL(32, 2);
 			EMO_GENERIC_FLS_ELEMENTARY_CELL(32, 1);
 			
-			return b;
+			return b - 1;
 		}
 		static inline
 		Integer genericFfs(Integer v)
@@ -187,7 +187,7 @@ private:
 			EMO_GENERIC_FLS_ELEMENTARY_CELL(16, 2);
 			EMO_GENERIC_FLS_ELEMENTARY_CELL(16, 1);
 			
-			return b;
+			return b - 1;
 		}
 		static inline
 		Integer genericFfs(Integer v)
@@ -242,7 +242,7 @@ private:
 			EMO_GENERIC_FLS_ELEMENTARY_CELL(8, 2);
 			EMO_GENERIC_FLS_ELEMENTARY_CELL(8, 1);
 			
-			return b;
+			return b - 1;
 		}
 		static inline
 		Integer genericFfs(Integer v)
@@ -288,14 +288,14 @@ EMO_END_INTERNAL_NAMESPACE
 
 template <typename Integer>
 inline
-Integer EmoFls(const Integer v)
+Integer emoFls(const Integer v)
 {
 	return Intern::EmoFxs<Integer>::fls(v);
 }
 
 template <typename Integer>
 inline
-Integer EmoFfs(const Integer v)
+Integer emoFfs(const Integer v)
 {
 	return Intern::EmoFxs<Integer>::ffs(v);
 }
