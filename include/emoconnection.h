@@ -30,7 +30,7 @@ EMO_BEGIN_NAMESPACE
 class EmoObject;
 class EmoSlotBase;
 
-class EmoConnection
+struct EmoConnection
 {
 	EmoObject *m_object;
 	EmoSlotBase *m_slot;
