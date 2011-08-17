@@ -33,7 +33,7 @@
 #elif defined(EMO_USE_CUSTOM_ALLOCATOR)
 // User must provide pair of defenition for allocating and freeing memory.
 #	if !defined(EMO_USE_CUSTOM_MALLOC) || !defined(EMO_USE_CUSTOM_FREE)
-#		error EMO_USE_CUSTOM_MALLOC or EMO_USE_CUSTOM_FREE is not provided
+#		error "EMO_USE_CUSTOM_MALLOC or EMO_USE_CUSTOM_FREE is not provided"
 #	endif // !defined(EMO_USE_CUSTOM_MALLOC) || !defined(EMO_USE_CUSTOM_FREE)
 // User can specify special file to include allocator.
 #	if defined(EMO_CUSTOM_ALLOCATOR_INCLUDE)
@@ -41,14 +41,36 @@
 #	endif
 #elif defined(EMO_USE_BUILDIN_ALLOCATOR)
 #	if defined(EMO_HAS_BUILDIN_ALLOCATOR)
-#		error LibEmo build-in allocator is not implemented yet
+#		error "LibEmo build-in allocator is not implemented yet"
 #	else // defined(EMO_HAS_BUILDIN_ALLOCATOR)
-#		error This version of LibEmo does not compiled with build-in allocator
+#		error "This version of LibEmo does not compiled with build-in allocator"
 #	endif // defined(EMO_HAS_BUILDIN_ALLOCATOR)
 #else
 // There is no allocator selected. Using standard C++ operators.
 #	define EMO_USE_STD_ALLOCATOR
 #endif // defined(EMO_USE_STD_ALLOCATOR)
+
+#if   defined(EMO_USE_STD_MEMOP)
+#	include <cstring>
+#elif defined(EMO_USE_BUILDIN_MEMOP)
+#	if defined(EMO_HAS_BUILDIN_MEMOP)
+#		error "LibEmo build-in memory operations is not implemented yet"
+#	else // defined(EMO_HAS_BUILDIN_MEMOP)
+#		error "This version of LibEmo does not compiled with build-in memory operations"
+#	endif // defined(EMO_HAS_BUILDIN_MEMOP)
+#elif defined(EMO_USE_CUSTOM_MEMOP)
+// User must provide defenitions for operations on memory.
+#	if !defined(EMO_CUSTOM_MEMSET) || !defined(EMO_CUSTOM_MEMCPY)
+#		error "EMO_CUSTOM_MEMSET or EMO_CUSTOM_MEMCPY is not provided"
+#	endif
+// User can specify special file to include memory operations.
+#	if defined(EMO_CUSTOM_MEMOP_INCLUDE)
+#		include EMO_CUSTOM_MEMOP_INCLUDE
+# endif // defined(EMO_CUSTOM_MEMOP_INCLUDE)
+#else // defined(EMO_USE_STD_MEMOP)
+#	define EMO_USE_STD_MEMOP
+#	include <cstring>
+#endif // defined(EMO_USE_STD_MEMOP)
 
 EMO_BEGIN_NAMESPACE
 
@@ -115,6 +137,19 @@ inline
 void emoDelete<void>(void *object)
 {
 	emoDoFree(object);
+}
+
+inline
+void *emoMemSet(void *buf,
+                EmoByte val,
+                EmoSizeType size)
+{
+#if   defined(EMO_USE_STD_MEMOP)
+	return std::memset(buf, val, size);
+#elif defined(EMO_USE_BUILDIN_MEMOP)
+#elif defined(EMO_USE_CUSTOM_MEMOP)
+	return EMO_CUSTOM_MEMSET(buf, val, size);
+#endif // defined(EMO_USE_STD_MEMOP)
 }
 
 EMO_END_NAMESPACE
