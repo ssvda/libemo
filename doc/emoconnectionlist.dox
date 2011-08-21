@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 \file emoconnectionlist.h
 \internal
 
-\~english \brief Declarations related to implementation of connection list.
+\~english \brief Declarations related to internal implementation of connection list.
 
-\~russian \brief Определениея, относящиеся к внутреннему предствалению списка соединений.
+\~russian \brief Определения, относящиеся к внутреннему представлению списка соединений.
 */
 

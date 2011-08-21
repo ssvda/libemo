@@ -35,10 +35,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 \~russian \brief Низкоуровневое представление соединения.
 
 \~english
-This structure produce a connection (i.e. link between some object,
+This structure implements a connection (i.e. link between some object,
 its slot and some instance of signal, belong to enother object).
 
 \~russian
-Эта стрруктура представляет соединение (т.е. связь между некоторым объектом,
-его слотом и ыигналом какого-то другого объекта.
+Эта структура представляет соединение (т.е. связь между некоторым объектом,
+его слотом и сигналом какого-то другого объекта.
 */
