@@ -70,4 +70,12 @@ target_link_libraries (${PROJECT_NAME}
 	Emo
 )
 
+# Run unit tests
+if (EMO_RUN_TESTS)
+	add_custom_target (test ALL $<TARGET_FILE:UnitTest>
+		WORKING_DIRECTORY ${EMO_BUILD_DIR}/tests
+		DEPENDS ${PROJECT_NAME}
+	)
+endif (EMO_RUN_TESTS)
+
 endmacro (generate_unit_test)
