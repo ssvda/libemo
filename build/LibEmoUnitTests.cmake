@@ -76,6 +76,11 @@ if (EMO_RUN_TESTS)
 		WORKING_DIRECTORY ${EMO_BUILD_DIR}/tests
 		DEPENDS ${PROJECT_NAME}
 	)
+else (EMO_RUN_TESTS)
+	add_custom_target (test $<TARGET_FILE:UnitTest>
+		WORKING_DIRECTORY ${EMO_BUILD_DIR}/tests
+		DEPENDS ${PROJECT_NAME}
+	)
 endif (EMO_RUN_TESTS)
 
 endmacro (generate_unit_test)
