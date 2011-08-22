@@ -40,10 +40,10 @@ class EmoBestFitInt
 {
 private:
 	// We suppose that this types align descending.
-	typedef long  TypeA;
-	typedef int   TypeB;
-	typedef short TypeC;
-	typedef char  TypeD;
+	typedef unsigned long  TypeA;
+	typedef unsigned int   TypeB;
+	typedef unsigned short TypeC;
+	typedef unsigned char  TypeD;
 	typedef EMO_LIMIT_BEST_FIT_INT_WITH TypeL;
 	
 	enum
@@ -71,7 +71,7 @@ EMO_END_NAMESPACE
 #ifndef EMO_FORCE_BEST_FIT_INT_TO
 #	define EMO_BEST_FIT_INT(BITS) Emo::Intern::EmoBestFitInt<BITS>::Type
 #else // EMO_FORCE_BEST_FIT_INT_TO
-#define EMO_BEST_FIT_INT(BITS) EMO_FORCE_BEST_FIT_INT_TO
+#	define EMO_BEST_FIT_INT(BITS) EMO_FORCE_BEST_FIT_INT_TO
 #endif // EMO_FORCE_BEST_FIT_INT_TO
 
 #endif // __EMO_NUMERICLIMITS_H
