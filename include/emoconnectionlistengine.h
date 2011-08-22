@@ -62,20 +62,22 @@ public:
 		EmoConnection m_list[NumberOfItems];
 	};
 	
+	typedef Buffer<32> Buffer32;
+
 	static
 	void initialize(BufferBase *connectionList,
 	                EmoSizeType listSize)
 	{
 		// Set field to initial state.
 		if(listSize <= 8)
-			static_cast<Buffer<8> *>(connectionList)->m_state = ~((~static_cast<BitFieldType>(0)) << listSize);
+			static_cast<Buffer<8> *>(connectionList)->m_state = ~BitFieldType(0) >> EMO_BITS_IN_TYPE(BitFieldType) - listSize;
 		else if(listSize <= 16)
-			static_cast<Buffer<16> *>(connectionList)->m_state = ~((~static_cast<BitFieldType>(0)) << listSize);
+			static_cast<Buffer<16> *>(connectionList)->m_state = ~BitFieldType(0) >> EMO_BITS_IN_TYPE(BitFieldType) - listSize;
 		else if(listSize <= 32)
-			static_cast<Buffer<32> *>(connectionList)->m_state = ~((~static_cast<BitFieldType>(0)) << listSize);
+			static_cast<Buffer32*>(connectionList)->m_state = ~BitFieldType(0) >> EMO_BITS_IN_TYPE(BitFieldType) - listSize;
 #if defined(EMO_64BIT)
 		else if(listSize <= 64)
-			static_cast<Buffer<64> *>(connectionList)->m_state = ~((~static_cast<BitFieldType>(0)) << listSize);
+			static_cast<Buffer<64> *>(connectionList)->m_state = ~BitFieldType(0) >> EMO_BITS_IN_TYPE(BitFieldType) - listSize;
 #endif // defined(EMO_64BIT)
 	}
 	
@@ -221,7 +223,7 @@ public:
 		}
 #endif // defined(EMO_64BIT)
 		
-		BitFieldType mask = ~(~static_cast<BitFieldType>(0) << listSize);
+		BitFieldType mask = ~BitFieldType(0) >> EMO_BITS_IN_TYPE(BitFieldType) - listSize;
 		
 		// Find first allocated cell.
 		register EmoInt i = emoFls((~f) & mask);
