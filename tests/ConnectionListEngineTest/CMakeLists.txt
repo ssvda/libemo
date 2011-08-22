@@ -1,4 +1,1 @@
-register_unit_test (
-	"TestDefinition.h"
-	"ConnectionTest.h"
-)
+register_unit_test ("ConnectionTest.h")
