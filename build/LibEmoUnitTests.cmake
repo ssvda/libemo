@@ -70,17 +70,46 @@ target_link_libraries (${PROJECT_NAME}
 	Emo
 )
 
+if (EMO_RUN_TESTS_64)
+
+	add_executable (${PROJECT_NAME}64
+		tests64.cpp
+		${EMO_UNITTESTS_FILES}
+	)
+
+	target_link_libraries (${PROJECT_NAME}64
+		${CPPUNIT_LIBRARY}
+		Emo
+	)
+
+endif (EMO_RUN_TESTS_64)
+
+
 # Run unit tests
 if (EMO_RUN_TESTS)
 	add_custom_target (test ALL $<TARGET_FILE:UnitTest>
 		WORKING_DIRECTORY ${EMO_BUILD_DIR}/tests
 		DEPENDS ${PROJECT_NAME}
 	)
+
+	if (EMO_RUN_TESTS_64)
+		add_custom_target (test64 ALL $<TARGET_FILE:UnitTest64>
+			WORKING_DIRECTORY ${EMO_BUILD_DIR}/tests
+			DEPENDS ${PROJECT_NAME}64
+		)
+	endif (EMO_RUN_TESTS_64)
 else (EMO_RUN_TESTS)
 	add_custom_target (test $<TARGET_FILE:UnitTest>
 		WORKING_DIRECTORY ${EMO_BUILD_DIR}/tests
 		DEPENDS ${PROJECT_NAME}
 	)
+
+	if (EMO_RUN_TESTS_64)
+		add_custom_target (test64 $<TARGET_FILE:UnitTest64>
+			WORKING_DIRECTORY ${EMO_BUILD_DIR}/tests
+			DEPENDS ${PROJECT_NAME}64
+		)
+	endif (EMO_RUN_TESTS_64)
 endif (EMO_RUN_TESTS)
 
 endmacro (generate_unit_test)
