@@ -44,12 +44,12 @@ class EmoFxs
 {
 public:
 	static inline
-	IntegerType fls(const IntegerType v)
+	EmoInt fls(const IntegerType v)
 	{
 		return ImplType::fls(v);
 	}
 	static inline
-	IntegerType ffs(const IntegerType v)
+	EmoInt ffs(const IntegerType v)
 	{
 		return ImplType::ffs(v);
 	}
@@ -70,7 +70,7 @@ private:
 	struct Implementation<Integer, 64>
 	{
 		static
-		Integer genericFls(Integer v)
+		EmoInt genericFls(Integer v)
 		{
 			register EmoInt b = 64;
 			register Integer t = v;
@@ -88,14 +88,14 @@ private:
 			return b - 1;
 		}
 		static inline
-		Integer genericFfs(Integer v)
+		EmoInt genericFfs(Integer v)
 		{
 			if(v == 0)
 				return -1;
 			return genericFls(v ^ (v - 1));
 		}
 		static inline
-		Integer fls(Integer v)
+		EmoInt fls(Integer v)
 		{
 #if defined(EMO_USE_CUSTOM_FLS64)
 			return EMO_USE_CUSTOM_FLS64(v);
@@ -104,7 +104,7 @@ private:
 #endif // defined(EMO_USE_CUSTOM_FLS64)
 		}
 		static inline
-		Integer ffs(Integer v)
+		EmoInt ffs(Integer v)
 		{
 #if defined(EMO_USE_CUSTOM_FFS64)
 			return EMO_USE_CUSTOM_FFS64(v);
@@ -121,7 +121,7 @@ private:
 	struct Implementation<Integer, 32>
 	{
 		static
-		Integer genericFls(Integer v)
+		EmoInt genericFls(Integer v)
 		{
 			register EmoInt b = 32;
 			register Integer t = v;
@@ -138,14 +138,14 @@ private:
 			return b - 1;
 		}
 		static inline
-		Integer genericFfs(Integer v)
+		EmoInt genericFfs(Integer v)
 		{
 			if(v == 0)
 				return -1;
 			return genericFls(v ^ (v - 1));
 		}
 		static inline
-		Integer fls(Integer v)
+		EmoInt fls(Integer v)
 		{
 #if defined(EMO_USE_CUSTOM_FLS32)
 			return EMO_USE_CUSTOM_FLS32(v);
@@ -156,7 +156,7 @@ private:
 #endif // defined(EMO_USE_CUSTOM_FLS32)
 		}
 		static inline
-		Integer ffs(Integer v)
+		EmoInt ffs(Integer v)
 		{
 #if defined(EMO_USE_CUSTOM_FFS32)
 			return EMO_USE_CUSTOM_FFS32(v);
@@ -174,7 +174,7 @@ private:
 	struct Implementation<Integer, 16>
 	{
 		static
-		Integer genericFls(Integer v)
+		EmoInt genericFls(Integer v)
 		{
 			register EmoInt b = 16;
 			register Integer t = v;
@@ -190,14 +190,14 @@ private:
 			return b - 1;
 		}
 		static inline
-		Integer genericFfs(Integer v)
+		EmoInt genericFfs(Integer v)
 		{
 			if(v == 0)
 				return -1;
 			return genericFls(v ^ (v - 1));
 		}
 		static inline
-		Integer fls(Integer v)
+		EmoInt fls(Integer v)
 		{
 #if defined(EMO_USE_CUSTOM_FLS16)
 			return EMO_USE_CUSTOM_FLS16(v);
@@ -210,7 +210,7 @@ private:
 #endif // defined(EMO_USE_CUSTOM_FLS16)
 		}
 		static inline
-		Integer ffs(Integer v)
+		EmoInt ffs(Integer v)
 		{
 #if defined(EMO_USE_CUSTOM_FFS16)
 			return EMO_USE_CUSTOM_FFS16(v);
@@ -230,7 +230,7 @@ private:
 	struct Implementation<Integer, 8>
 	{
 		static
-		Integer genericFls(Integer v)
+		EmoInt genericFls(Integer v)
 		{
 			register EmoInt b = 8;
 			register Integer t = v;
@@ -245,14 +245,14 @@ private:
 			return b - 1;
 		}
 		static inline
-		Integer genericFfs(Integer v)
+		EmoInt genericFfs(Integer v)
 		{
 			if(v == 0)
 				return -1;
 			return genericFls(v ^ (v - 1));
 		}
 		static inline
-		Integer fls(Integer v)
+		EmoInt fls(Integer v)
 		{
 #if defined(EMO_USE_CUSTOM_FLS8)
 			return EMO_USE_CUSTOM_FLS8(v);
@@ -267,7 +267,7 @@ private:
 #endif // defined(EMO_USE_CUSTOM_FLS8)
 		}
 		static inline
-		Integer ffs(Integer v)
+		EmoInt ffs(Integer v)
 		{
 #if defined(EMO_USE_CUSTOM_FFS8)
 			return EMO_USE_CUSTOM_FFS8(v);
@@ -288,14 +288,14 @@ EMO_END_INTERNAL_NAMESPACE
 
 template <typename Integer>
 inline
-Integer emoFls(const Integer v)
+EmoInt emoFls(const Integer v)
 {
 	return Intern::EmoFxs<Integer>::fls(v);
 }
 
 template <typename Integer>
 inline
-Integer emoFfs(const Integer v)
+EmoInt emoFfs(const Integer v)
 {
 	return Intern::EmoFxs<Integer>::ffs(v);
 }
