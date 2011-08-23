@@ -226,7 +226,7 @@ private:
 	
 	
 	
-		template <typename Integer>
+	template <typename Integer>
 	struct Implementation<Integer, 8>
 	{
 		static
@@ -299,6 +299,8 @@ Integer emoFfs(const Integer v)
 {
 	return Intern::EmoFxs<Integer>::ffs(v);
 }
+
+#undef EMO_GENERIC_FLS_ELEMENTARY_CELL
 
 EMO_END_NAMESPACE
 

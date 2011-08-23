@@ -42,9 +42,9 @@ class EmoConnectionListEngine<false>
 {
 private:
 #if defined(EMO_64BIT)
-	typedef EMO_TYPIFIED_IF(sizeof(EmoULong) > sizeof(EmoUInt), EmoULong, EmoUInt) BitFieldType;
+	typedef EMO_BEST_FIT_INT(64) BitFieldType;
 #else // defined(EMO_64BIT)
-	typedef EmoUInt BitFieldType;
+	typedef EMO_BEST_FIT_INT(32) BitFieldType;
 #endif // defined(EMO_64BIT)
 	
 public:
@@ -61,8 +61,6 @@ public:
 		StateType m_state;
 		EmoConnection m_list[NumberOfItems];
 	};
-	
-	typedef Buffer<32> Buffer32;
 
 	static
 	void initialize(BufferBase *connectionList,
@@ -74,10 +72,10 @@ public:
 		else if(listSize <= 16)
 			static_cast<Buffer<16> *>(connectionList)->m_state = ~BitFieldType(0) >> EMO_BITS_IN_TYPE(BitFieldType) - listSize;
 		else if(listSize <= 32)
-			static_cast<Buffer32*>(connectionList)->m_state = ~BitFieldType(0) >> EMO_BITS_IN_TYPE(BitFieldType) - listSize;
+			static_cast<Buffer<32> *>(connectionList)->m_state = ~BitFieldType(0) >> EMO_BITS_IN_TYPE(BitFieldType) - listSize;
 #if defined(EMO_64BIT)
 		else if(listSize <= 64)
-			static_cast<Buffer<64> *>(connectionList)->m_state = ~BitFieldType(0) >> EMO_BITS_IN_TYPE(BitFieldType) - listSize;
+			static_cast<Buffer<64> *>(connectionList)->m_state = /*~BitFieldType(0) >> EMO_BITS_IN_TYPE(BitFieldType) - listSize*/0xFFFFFFFFFFFFFFFF;
 #endif // defined(EMO_64BIT)
 	}
 	
@@ -120,7 +118,7 @@ public:
 		EMO_ASSERT(i >= 0 && i < listSize);
 		
 		// Clear corresponding bit.
-		f &= ~(1 << i);
+		f &= ~(BitFieldType(1) << i);
 		
 		// Save values.
 		if(listSize <= 8)
