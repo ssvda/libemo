@@ -75,7 +75,7 @@ public:
 			static_cast<Buffer<32> *>(connectionList)->m_state = ~BitFieldType(0) >> EMO_BITS_IN_TYPE(BitFieldType) - listSize;
 #if defined(EMO_64BIT)
 		else if(listSize <= 64)
-			static_cast<Buffer<64> *>(connectionList)->m_state = /*~BitFieldType(0) >> EMO_BITS_IN_TYPE(BitFieldType) - listSize*/0xFFFFFFFFFFFFFFFF;
+			static_cast<Buffer<64> *>(connectionList)->m_state = ~BitFieldType(0) >> EMO_BITS_IN_TYPE(BitFieldType) - listSize;
 #endif // defined(EMO_64BIT)
 	}
 	
