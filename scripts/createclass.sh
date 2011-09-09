@@ -95,6 +95,7 @@ CPPFILE="$EMOROOT/libemo/$LCNAME.cpp"
 DOXFILE="$EMOROOT/doc/$LCNAME.dox"
 
 EMOFILELIST="$EMOROOT/build/LibEmoFiles.cmake"
+EMOCMAKELIST="$EMOROOT/build/CMakeLists.txt"
 
 # Test for heareds existense.
 if [ -a "$HFILE" ] || [ -a "$QTFILE" ] || [ -a "$CPPFILE" ] || [ -a "$DOXFILE" ]
@@ -256,6 +257,7 @@ echo "$MYSELF: Patching \`$EMOFILELIST'..."
 cat "$EMOFILELIST" > "$EMOFILELIST.backup"
 
 sed --in-place "$SEDSCRIPT" "$EMOFILELIST"
+touch -a -c "$EMOCMAKELIST"
 
 echo "$MYSELF: Reserve copy was saved to \`$EMOFILELIST.backup'..."
 
