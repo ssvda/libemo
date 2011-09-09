@@ -1,0 +1,71 @@
+Embeded Meta Objects (EMO) Library
+
+Copyright (C) 2011  Dmitry A. Sysoev
+Copyright (C) 2011  Yuri O. Nuzhdin
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+
+/**
+\internal
+\file emosigned.h
+
+\~english \brief Defenitions related to singed-unsigned conversion
+mechanism.
+
+\~russian \brief Определения для обобщённого преобразования знаковых и
+беззнаковых типов.
+*/
+
+/**
+\internal
+\class Emo::EmoSigned
+
+\~english \brief Generalised mechanism to convert between signed and unsigned
+integer types.
+
+\~russian \brief Обобщённый механизм для преобразования между знаковыми и
+беззнаковыми типами целых.
+
+\~english
+It happens that we are given some integer type. It's a very good integer type,
+but we didn't know is it signed or unsigned.
+
+This template allow to convert some integer type to it's explicit signed or
+unsigned form.
+
+\~russian
+Бывает, что нам дан некоторый целочисленный тип. Он нас всем устраивает за
+исключением одного: мы не знаем знаковый или беззнаковый он.
+
+Этот шаблон позволяет убедиться в том, что переданный тип является
+знаковым или беззнаковым.
+
+\~
+\code
+typedef Emo::EmoSigned<SomeType>::Signed   SignedVersionOfSomeType;
+typedef Emo::EmoSigned<SomeType>::Unsigned UnsignedVersionOfSomeType;
+\endcode
+
+\~english
+Whatever the type \c SomeType, \c SignedVersionOfSomeType and
+\c UnsignedVersionOfSomeType will it's signed and unsigned form
+(integer types of same size).
+
+\~russian
+Приведённый код гарантирует, что каким бы стандартным целочисленным
+типом не был \c SomeType типы \c SignedVersionOfSomeType и
+\c UnsignedVersionOfSomeType будут знаковым и беззнаковым типами
+того же размера соответственно.
+*/
