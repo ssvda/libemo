@@ -26,14 +26,15 @@
 #include <emotypes.h>
 #include <emoconnectionlistengine.h>
 #include <emoconnection.h>
+#include <emoconnectionlistnodebase.h>
 
 EMO_BEGIN_NAMESPACE
 
 template <EmoSizeType NumberOfItems>
 class EmoConnectionListNode
+	:public EmoConnectionListNodeBase<(NumberOfItems > EMO_BUS_WIDTH)>
 {
 public:
-	typedef EmoConnectionListEngine<(NumberOfItems > EMO_BUS_WIDTH)> ListEngine;
 	typedef typename ListEngine::Buffer<NumberOfItems> ListBuffer;
 	typedef EmoConnectionListNode<NumberOfItems> NodeType;
 	
