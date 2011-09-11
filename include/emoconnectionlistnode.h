@@ -77,6 +77,24 @@ public:
 		return &this->m_buffer;
 	}
 	
+	inline
+	EmoConnection *connect(EmoConnection *source)
+	{
+		return doConnect(source, &this->m_buffer, NumberOfItems);
+	}
+	
+	inline
+	void disconnect(EmoConnection *pattern)
+	{
+		doDisconnect(pattern, &this->m_buffer, NumberOfItems);
+	}
+	
+	inline
+	void call(void **arguments)
+	{
+		doCall(arguments, &this->m_buffer, NumberOfItems);
+	}
+	
 private:
 	NodeType *m_next;
 	ListBuffer m_buffer;
