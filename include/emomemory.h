@@ -128,7 +128,7 @@ template <typename Type>
 inline
 void emoDelete(Type *object)
 {
-	object->~object();
+	object->~Type();
 	emoDoFree(object);
 }
 

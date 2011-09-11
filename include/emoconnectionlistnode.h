@@ -35,11 +35,12 @@ class EmoConnectionListNode
 	:public EmoConnectionListNodeBase<(NumberOfItems > EMO_BUS_WIDTH)>
 {
 public:
-	typedef typename ListEngine::Buffer<NumberOfItems> ListBuffer;
+	typedef typename EmoConnectionListNodeBase<(NumberOfItems > EMO_BUS_WIDTH)>::ListEngine ListEngine;
+	typedef typename ListEngine::template Buffer<NumberOfItems> ListBuffer;
 	typedef EmoConnectionListNode<NumberOfItems> NodeType;
 	
 	EmoConnectionListNode()
-		:m_next(0),
+		:m_next(0)
 	{
 		ListEngine::initialize(&this->m_buffer, NumberOfItems);
 	}

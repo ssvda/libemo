@@ -34,7 +34,7 @@ class EmoConnectionListNodeBase
 {
 public:
 	typedef EmoConnectionListEngine<IsItWiderThanBus> ListEngine;
-	typedef ListEngine::BufferBase BufferBase;
+	typedef typename ListEngine::BufferBase BufferBase;
 	
 protected:
 	EmoConnection *doConnect(EmoConnection *source,
@@ -60,10 +60,8 @@ protected:
 			while(connection != 0)
 			{
 				if(connection->m_object == pattern->m_object && connection->m_slot == pattern->m_slot)
-				{
-					ListEngine::free(connection, buffer, numberOfItems);
-					connection = ListEngine::next(connection, buffer, numberOfItems);
-				}
+					ListEngine::free(buffer, connection, numberOfItems);
+				connection = ListEngine::next(buffer, connection, numberOfItems);
 			}
 		}
 		else
@@ -71,10 +69,8 @@ protected:
 			while(connection != 0)
 			{
 				if(connection->m_slot == pattern->m_slot)
-				{
-					ListEngine::free(connection, buffer, numberOfItems);
-					connection = ListEngine::next(connection, buffer, numberOfItems);
-				}
+					ListEngine::free(buffer, connection, numberOfItems);
+				connection = ListEngine::next(buffer, connection, numberOfItems);
 			}
 		}
 	}
@@ -86,11 +82,8 @@ protected:
 		register EmoConnection *connection = ListEngine::iterate(buffer, numberOfItems);
 		while(connection != 0)
 		{
-			if(connection->m_object == pattern->m_object && connection->m_slot == pattern->m_slot)
-			{
-				// TODO connection->m_slot->call(arguments);
-				connection = ListEngine::next(connection, buffer, numberOfItems);
-			}
+			// TODO connection->m_slot->call(arguments);
+			connection = ListEngine::next(buffer, connection, numberOfItems);
 		}
 	}
 };

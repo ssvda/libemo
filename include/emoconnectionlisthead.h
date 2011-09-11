@@ -36,7 +36,8 @@ class EmoConnectionListHead
 	:public EmoConnectionListNodeBase<(NumberOfItems > EMO_BUS_WIDTH)>
 {
 public:
-	typedef typename ListEngine::Buffer<NumberOfItems> ListBuffer;
+	typedef typename EmoConnectionListNodeBase<(NumberOfItems > EMO_BUS_WIDTH)>::ListEngine ListEngine;
+	typedef typename ListEngine::template Buffer<NumberOfItems> ListBuffer;
 	typedef EmoConnectionListHead<NumberOfItems, ItemsInExtend> NodeType;
 	typedef EmoConnectionListNode<ItemsInExtend> ExtendType;
 	
@@ -74,13 +75,20 @@ public:
 		register EmoConnection *connection = this->doConnect(source, &this->m_buffer, NumberOfItems);
 		if(connection == 0)
 		{
-			if(this->m_next == 0)
-				this->extend();
-			register ExtendType *e = this->m_next;
-			while(e != 0 || connection != 0)
+			this->extend();
+			register ExtendType *e;
+			register ExtendType *n = this->m_next;
+			do
 			{
+				e = n;
 				connection = e->connect(source);
-				e = e->next();
+				n = e->next();
+			}
+			while(n != 0 && connection != 0);
+			if(connection == 0)
+			{
+				e->extend();
+				e->next()->connect(source);
 			}
 		}
 		return connection;
@@ -92,7 +100,7 @@ public:
 		if(this->m_next != 0)
 		{
 			register ExtendType *e = this->m_next;
-			while(e != 0 || connection != 0)
+			while(e != 0)
 			{
 				e->disconnect(pattern);
 				e = e->next();
@@ -106,7 +114,7 @@ public:
 		if(this->m_next != 0)
 		{
 			register ExtendType *e = this->m_next;
-			while(e != 0 || connection != 0)
+			while(e != 0)
 			{
 				e->call(arguments);
 				e = e->next();
