@@ -96,6 +96,12 @@ public:
 		this->doCall(arguments, &this->m_buffer, NumberOfItems);
 	}
 	
+	inline
+	EmoBool empty()
+	{
+		return ListEngine::empty(&this->m_buffer, NumberOfItems);
+	}
+	
 private:
 	NodeType *m_next;
 	ListBuffer m_buffer;

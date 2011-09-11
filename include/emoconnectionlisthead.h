@@ -129,6 +129,12 @@ public:
 		ListEngine::initialize(&this->m_buffer, NumberOfItems);
 	}
 	
+	inline
+	void optimize()
+	{
+		// TODO Defragmetation of list.
+	}
+	
 private:
 	ExtendType *m_next;
 	ListBuffer m_buffer;
