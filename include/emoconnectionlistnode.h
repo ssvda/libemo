@@ -80,19 +80,19 @@ public:
 	inline
 	EmoConnection *connect(EmoConnection *source)
 	{
-		return doConnect(source, &this->m_buffer, NumberOfItems);
+		return this->doConnect(source, &this->m_buffer, NumberOfItems);
 	}
 	
 	inline
 	void disconnect(EmoConnection *pattern)
 	{
-		doDisconnect(pattern, &this->m_buffer, NumberOfItems);
+		this->doDisconnect(pattern, &this->m_buffer, NumberOfItems);
 	}
 	
 	inline
 	void call(void **arguments)
 	{
-		doCall(arguments, &this->m_buffer, NumberOfItems);
+		this->doCall(arguments, &this->m_buffer, NumberOfItems);
 	}
 	
 private:
