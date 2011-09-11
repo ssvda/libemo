@@ -1,0 +1,132 @@
+/*
+	Embeded Meta Objects (EMO) Library
+	
+	Copyright (C) 2011  Dmitry A. Sysoev
+	Copyright (C) 2011  Yuri O. Nuzhdin
+	
+	This library is free software; you can redistribute it and/or
+	modify it under the terms of the GNU Lesser General Public
+	License as published by the Free Software Foundation; either
+	version 2.1 of the License, or (at your option) any later version.
+	
+	This library is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+	Lesser General Public License for more details.
+	
+	You should have received a copy of the GNU Lesser General Public
+	License along with this library; if not, write to the Free Software
+	Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+*/
+
+#ifndef __EMO_CONNECTIONLISTHEAD_H
+#define __EMO_CONNECTIONLISTHEAD_H
+
+#include <emodefs.h>
+#include <emotypes.h>
+#include <emoconnectionlistnode.h>
+#include <emoconnectionlistnodebase.h>
+#include <emoconnectionlistengine.h>
+
+EMO_BEGIN_NAMESPACE
+
+template <EmoSizeType NumberOfItems,
+          EmoSizeType ItemsInExtend>
+class EmoConnectionListHead
+	:public EmoConnectionListNodeBase<(NumberOfItems > EMO_BUS_WIDTH)>
+{
+public:
+	typedef typename ListEngine::Buffer<NumberOfItems> ListBuffer;
+	typedef EmoConnectionListHead<NumberOfItems, ItemsInExtend> NodeType;
+	typedef EmoConnectionListNode<ItemsInExtend> ExtendType;
+	
+	EmoConnectionListHead()
+		:m_next(0)
+	{
+		ListEngine::initialize(&this->m_buffer, NumberOfItems);
+	}
+	~EmoConnectionListHead()
+	{
+		this->reduce();
+	}
+	
+private:
+	inline
+	void extend()
+	{
+		if(this->m_next == 0)
+			this->m_next = emoAlloc<ExtendType>();
+	}
+	
+	inline
+	void reduce()
+	{
+		if(this->m_next != 0)
+		{
+			emoDelete(this->m_next);
+			this->m_next = 0;
+		}
+	}
+	
+public:
+	EmoConnection *connect(EmoConnection *source)
+	{
+		register EmoConnection *connection = this->doConnect(source, &this->m_buffer, NumberOfItems);
+		if(connection == 0)
+		{
+			if(this->m_next == 0)
+				this->extend();
+			register ExtendType *e = this->m_next;
+			while(e != 0 || connection != 0)
+			{
+				connection = e->connect(source);
+				e = e->next();
+			}
+		}
+		return connection;
+	}
+	
+	void disconnect(EmoConnection *pattern)
+	{
+		this->doDisconnect(pattern, &this->m_buffer, NumberOfItems);
+		if(this->m_next != 0)
+		{
+			register ExtendType *e = this->m_next;
+			while(e != 0 || connection != 0)
+			{
+				e->disconnect(pattern);
+				e = e->next();
+			}
+		}
+	}
+	
+	void call(void **arguments)
+	{
+		this->doCall(arguments, &this->m_buffer, NumberOfItems);
+		if(this->m_next != 0)
+		{
+			register ExtendType *e = this->m_next;
+			while(e != 0 || connection != 0)
+			{
+				e->call(arguments);
+				e = e->next();
+			}
+		}
+	}
+	
+	inline
+	void clear()
+	{
+		this->reduce();
+		ListEngine::initialize(&this->m_buffer, NumberOfItems);
+	}
+	
+private:
+	ExtendType *m_next;
+	ListBuffer m_buffer;
+};
+
+EMO_END_NAMESPACE
+
+#endif // __EMO_CONNECTIONLISTHEAD_H
+
