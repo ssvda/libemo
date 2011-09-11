@@ -285,6 +285,36 @@ public:
 		return b + i;
 	}
 	
+	static
+	EmoBool empty(BufferBase *connectionList,
+	              EmoSizeType listSize)
+	{
+		register BitFieldType f;
+		
+		// Load values.
+		if(listSize <= 8)
+		{
+			f = static_cast<Buffer<8> *>(connectionList)->m_state;
+		}
+		else if(listSize <= 16)
+		{
+			f = static_cast<Buffer<16> *>(connectionList)->m_state;
+		}
+		else if(listSize <= 32)
+		{
+			f = static_cast<Buffer<32> *>(connectionList)->m_state;
+		}
+#if defined(EMO_64BIT)
+		else if(listSize <= 64)
+		{
+			f = static_cast<Buffer<64> *>(connectionList)->m_state;
+		}
+#endif // defined(EMO_64BIT)
+		
+		// Test for equality to mask.
+		return f == ~BitFieldType(0) >> EMO_BITS_IN_TYPE(BitFieldType) - listSize;
+	}
+	
 private:
 	EmoConnectionListEngine();
 };
@@ -354,6 +384,13 @@ public:
 				return current;
 		}
 		return 0;
+	}
+	
+	static inline
+	EmoBool empty(BufferBase *connectionList,
+	              EmoSizeType listSize)
+	{
+		return iterate(connectionList, listSize) == 0;
 	}
 	
 private:
