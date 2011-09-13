@@ -25,7 +25,7 @@
 
 # General list of all c-style headers.
 set (EMO_CSTYLE_HEADERS_LIST
-	emoconnectionlisthead.h
+	emoconnectionlist.h
 	emoconnectionlistnodebase.h
 	emoconnectionlistnode.h
 	emosigned.h
@@ -64,7 +64,7 @@ set (EMO_SOURCES_LIST
 
 # Doxygen documentation for sources.
 set (EMO_SOURCES_DOX_LIST
-	emoconnectionlisthead.dox
+	emoconnectionlist.dox
 	emoconnectionlistnodebase.dox
 	emoconnectionlistnode.dox
 	emosigned.dox

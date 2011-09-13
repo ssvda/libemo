@@ -32,21 +32,21 @@ EMO_BEGIN_NAMESPACE
 
 template <EmoSizeType NumberOfItems,
           EmoSizeType ItemsInExtend>
-class EmoConnectionListHead
+class EmoConnectionList
 	:public EmoConnectionListNodeBase<(NumberOfItems > EMO_BUS_WIDTH)>
 {
 public:
 	typedef typename EmoConnectionListNodeBase<(NumberOfItems > EMO_BUS_WIDTH)>::ListEngine ListEngine;
 	typedef typename ListEngine::template Buffer<NumberOfItems> ListBuffer;
-	typedef EmoConnectionListHead<NumberOfItems, ItemsInExtend> NodeType;
+	typedef EmoConnectionList<NumberOfItems, ItemsInExtend> NodeType;
 	typedef EmoConnectionListNode<ItemsInExtend> ExtendType;
 	
-	EmoConnectionListHead()
+	EmoConnectionList()
 		:m_next(0)
 	{
 		ListEngine::initialize(&this->m_buffer, NumberOfItems);
 	}
-	~EmoConnectionListHead()
+	~EmoConnectionList()
 	{
 		this->reduce();
 	}
