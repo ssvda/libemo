@@ -39,7 +39,6 @@ set (EMO_CSTYLE_HEADERS_LIST
 	emotypes.h
 	emomemory.h
 	emometacontainer.h
-	emosignalbase.h
 	emosignal.h
 	emosignalinternals.h
 )
@@ -78,7 +77,6 @@ set (EMO_SOURCES_DOX_LIST
 	emotypes.dox
 	emomemory.dox
 	emometacontainer.dox
-	emosignalbase.dox
 	emosignal.dox
 	emosignalinternals.dox
 	emoconnectionlist.dox

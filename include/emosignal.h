@@ -24,7 +24,6 @@
 
 #include <emodefs.h>
 #include <emotypes.h>
-#include <emosignalbase.h>
 #include <emosignalinternals.h>
 
 EMO_BEGIN_NAMESPACE
@@ -36,7 +35,6 @@ class EmoSlotBase;
 template <typename SignalTypeBinding,
           typename SignalInternals = EmoDefaultSignalInternals>
 class EmoSignal
-	:public EmoSignalBase
 {
 public:
 	typedef SignalTypeBinding TypeBinding;
