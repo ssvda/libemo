@@ -182,18 +182,18 @@ void DataSender::gotData(int data)
 }
 \endcode
 
-\section IntroConnect Связывание слотов и сигналов
+\section IntroBind Связывание слотов и сигналов
 
 Слот и сигнал могут быть связаны при помощи вызова специальной
-функции \ref emoConnect. В качестве аргументов ей передаются
+функции \ref emoBind. В качестве аргументов ей передаются
 объекты для которых производится связывание.
 
 Пусть имеются два объекта \c dataSender и \c dataReceiver типов
 \c DataSender и \c DataReciever соответственно. Связь между их слотами
 и сигналами может быть установлена следующим образом:
 \code
-	emoConnect<EMO_SLOT(dataReceiver::receiveData, (char, bool))>(dataReceiver, dataSender->sendByte);
-	emoConnect<EMO_SLOT(dataReceiver::receiveData, (int))>(dataReceiver, dataSender->sendWord);
+	emoBind<EMO_SLOT(dataReceiver::receiveData, (char, bool))>(dataReceiver, dataSender->sendByte);
+	emoBind<EMO_SLOT(dataReceiver::receiveData, (int))>(dataReceiver, dataSender->sendWord);
 \endcode
 
 При подключении слотов производится контроль типов и если попробовать

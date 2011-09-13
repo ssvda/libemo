@@ -19,8 +19,8 @@
 	Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-#ifndef __EMO_CONNECTION_H
-#define __EMO_CONNECTION_H
+#ifndef __EMO_BINDING_H
+#define __EMO_BINDING_H
 
 #include <emodefs.h>
 
@@ -30,7 +30,7 @@ EMO_BEGIN_NAMESPACE
 class EmoObject;
 class EmoSlotBase;
 
-struct EmoConnection
+struct EmoBinding
 {
 	EmoObject *m_object;
 	EmoSlotBase *m_slot;
@@ -38,5 +38,5 @@ struct EmoConnection
 
 EMO_END_NAMESPACE
 
-#endif // __EMO_CONNECTION_H
+#endif // __EMO_BINDING_H
 

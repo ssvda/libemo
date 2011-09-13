@@ -25,16 +25,16 @@
 
 # General list of all c-style headers.
 set (EMO_CSTYLE_HEADERS_LIST
-	emoconnectionlist.h
-	emoconnectionlistnodebase.h
-	emoconnectionlistnode.h
+	emobindinglist.h
+	emobindinglistnodebase.h
+	emobindinglistnode.h
 	emosigned.h
 	emoslotbase.h
 	emofxs.h
 	emotypifiedif.h
 	emobestfitint.h
-	emoconnectionlistengine.h
-	emoconnection.h
+	emobindinglistengine.h
+	emobinding.h
 	emodefs.h
 	emotypes.h
 	emomemory.h
@@ -63,23 +63,22 @@ set (EMO_SOURCES_LIST
 
 # Doxygen documentation for sources.
 set (EMO_SOURCES_DOX_LIST
-	emoconnectionlist.dox
-	emoconnectionlistnodebase.dox
-	emoconnectionlistnode.dox
+	emobindinglist.dox
+	emobindinglistnodebase.dox
+	emobindinglistnode.dox
 	emosigned.dox
 	emoslotbase.dox
 	emofxs.dox
 	emotypifiedif.dox
 	emobestfitint.dox
-	emoconnectionlistengine.dox
-	emoconnection.dox
+	emobindinglistengine.dox
+	emobinding.dox
 	emodefs.dox
 	emotypes.dox
 	emomemory.dox
 	emometacontainer.dox
 	emosignal.dox
 	emosignalinternals.dox
-	emoconnectionlist.dox
 )
 
 # Doxygen general documentation for whole library.

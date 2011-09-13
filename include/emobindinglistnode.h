@@ -19,32 +19,32 @@
 	Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-#ifndef __EMO_CONNECTIONLISTNODE_H
-#define __EMO_CONNECTIONLISTNODE_H
+#ifndef __EMO_BINDINGLISTNODE_H
+#define __EMO_BINDINGLISTNODE_H
 
 #include <emodefs.h>
 #include <emotypes.h>
-#include <emoconnectionlistengine.h>
-#include <emoconnection.h>
-#include <emoconnectionlistnodebase.h>
+#include <emobindinglistengine.h>
+#include <emobinding.h>
+#include <emobindinglistnodebase.h>
 
 EMO_BEGIN_NAMESPACE
 
 template <EmoSizeType NumberOfItems>
-class EmoConnectionListNode
-	:public EmoConnectionListNodeBase<(NumberOfItems > EMO_BUS_WIDTH)>
+class EmoBindingListNode
+	:public EmoBindingListNodeBase<(NumberOfItems > EMO_BUS_WIDTH)>
 {
 public:
-	typedef typename EmoConnectionListNodeBase<(NumberOfItems > EMO_BUS_WIDTH)>::ListEngine ListEngine;
+	typedef typename EmoBindingListNodeBase<(NumberOfItems > EMO_BUS_WIDTH)>::ListEngine ListEngine;
 	typedef typename ListEngine::template Buffer<NumberOfItems> ListBuffer;
-	typedef EmoConnectionListNode<NumberOfItems> NodeType;
+	typedef EmoBindingListNode<NumberOfItems> NodeType;
 	
-	EmoConnectionListNode()
+	EmoBindingListNode()
 		:m_next(0)
 	{
 		ListEngine::initialize(&this->m_buffer, NumberOfItems);
 	}
-	~EmoConnectionListNode()
+	~EmoBindingListNode()
 	{
 		this->reduce();
 	}
@@ -79,15 +79,15 @@ public:
 	}
 	
 	inline
-	EmoConnection *connect(EmoConnection *source)
+	EmoBinding *bind(EmoBinding *source)
 	{
-		return this->doConnect(source, &this->m_buffer, NumberOfItems);
+		return this->doBind(source, &this->m_buffer, NumberOfItems);
 	}
 	
 	inline
-	void disconnect(EmoConnection *pattern)
+	void unbind(EmoBinding *pattern)
 	{
-		this->doDisconnect(pattern, &this->m_buffer, NumberOfItems);
+		this->doUnbind(pattern, &this->m_buffer, NumberOfItems);
 	}
 	
 	inline
@@ -109,5 +109,5 @@ private:
 
 EMO_END_NAMESPACE
 
-#endif // __EMO_CONNECTIONLISTNODE_H
+#endif // __EMO_BINDINGLISTNODE_H
 

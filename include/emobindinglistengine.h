@@ -19,12 +19,12 @@
 	Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-#ifndef __EMO_CONNECTIONLISTENGINE_H
-#define __EMO_CONNECTIONLISTENGINE_H
+#ifndef __EMO_BINDINGLISTENGINE_H
+#define __EMO_BINDINGLISTENGINE_H
 
 #include <emodefs.h>
 #include <emotypes.h>
-#include <emoconnection.h>
+#include <emobinding.h>
 #include <emobestfitint.h>
 #include <emotypifiedif.h>
 #include <emofxs.h>
@@ -33,12 +33,12 @@
 EMO_BEGIN_NAMESPACE
 
 template <EmoBool IsItWiderThanBus>
-class EmoConnectionListEngine
+class EmoBindingListEngine
 {
 };
 
 template <>
-class EmoConnectionListEngine<false>
+class EmoBindingListEngine<false>
 {
 private:
 #if defined(EMO_64BIT)
@@ -59,54 +59,54 @@ public:
 	public:
 		typedef typename EMO_BEST_FIT_INT(NumberOfItems) StateType;
 		StateType m_state;
-		EmoConnection m_list[NumberOfItems];
+		EmoBinding m_list[NumberOfItems];
 	};
 
 	static
-	void initialize(BufferBase *connectionList,
+	void initialize(BufferBase *bindingList,
 	                EmoSizeType listSize)
 	{
 		// Set field to initial state.
 		if(listSize <= 8)
-			static_cast<Buffer<8> *>(connectionList)->m_state = ~BitFieldType(0) >> EMO_BITS_IN_TYPE(BitFieldType) - listSize;
+			static_cast<Buffer<8> *>(bindingList)->m_state = ~BitFieldType(0) >> EMO_BITS_IN_TYPE(BitFieldType) - listSize;
 		else if(listSize <= 16)
-			static_cast<Buffer<16> *>(connectionList)->m_state = ~BitFieldType(0) >> EMO_BITS_IN_TYPE(BitFieldType) - listSize;
+			static_cast<Buffer<16> *>(bindingList)->m_state = ~BitFieldType(0) >> EMO_BITS_IN_TYPE(BitFieldType) - listSize;
 		else if(listSize <= 32)
-			static_cast<Buffer<32> *>(connectionList)->m_state = ~BitFieldType(0) >> EMO_BITS_IN_TYPE(BitFieldType) - listSize;
+			static_cast<Buffer<32> *>(bindingList)->m_state = ~BitFieldType(0) >> EMO_BITS_IN_TYPE(BitFieldType) - listSize;
 #if defined(EMO_64BIT)
 		else if(listSize <= 64)
-			static_cast<Buffer<64> *>(connectionList)->m_state = ~BitFieldType(0) >> EMO_BITS_IN_TYPE(BitFieldType) - listSize;
+			static_cast<Buffer<64> *>(bindingList)->m_state = ~BitFieldType(0) >> EMO_BITS_IN_TYPE(BitFieldType) - listSize;
 #endif // defined(EMO_64BIT)
 	}
 	
 	static
-	EmoConnection *allocate(BufferBase *connectionList,
+	EmoBinding *allocate(BufferBase *bindingList,
 	                        EmoSizeType listSize)
 	{
 		register BitFieldType f;
-		EmoConnection *b;
+		EmoBinding *b;
 		
 		// Load values.
 		if(listSize <= 8)
 		{
-			f = static_cast<Buffer<8> *>(connectionList)->m_state;
-			b = static_cast<Buffer<8> *>(connectionList)->m_list;
+			f = static_cast<Buffer<8> *>(bindingList)->m_state;
+			b = static_cast<Buffer<8> *>(bindingList)->m_list;
 		}
 		else if(listSize <= 16)
 		{
-			f = static_cast<Buffer<16> *>(connectionList)->m_state;
-			b = static_cast<Buffer<16> *>(connectionList)->m_list;
+			f = static_cast<Buffer<16> *>(bindingList)->m_state;
+			b = static_cast<Buffer<16> *>(bindingList)->m_list;
 		}
 		else if(listSize <= 32)
 		{
-			f = static_cast<Buffer<32> *>(connectionList)->m_state;
-			b = static_cast<Buffer<32> *>(connectionList)->m_list;
+			f = static_cast<Buffer<32> *>(bindingList)->m_state;
+			b = static_cast<Buffer<32> *>(bindingList)->m_list;
 		}
 #if defined(EMO_64BIT)
 		else if(listSize <= 64)
 		{
-			f = static_cast<Buffer<64> *>(connectionList)->m_state;
-			b = static_cast<Buffer<64> *>(connectionList)->m_list;
+			f = static_cast<Buffer<64> *>(bindingList)->m_state;
+			b = static_cast<Buffer<64> *>(bindingList)->m_list;
 		}
 #endif // defined(EMO_64BIT)
 		
@@ -122,14 +122,14 @@ public:
 		
 		// Save values.
 		if(listSize <= 8)
-			static_cast<Buffer<8> *>(connectionList)->m_state = f;
+			static_cast<Buffer<8> *>(bindingList)->m_state = f;
 		else if(listSize <= 16)
-			static_cast<Buffer<16> *>(connectionList)->m_state = f;
+			static_cast<Buffer<16> *>(bindingList)->m_state = f;
 		else if(listSize <= 32)
-			static_cast<Buffer<32> *>(connectionList)->m_state = f;
+			static_cast<Buffer<32> *>(bindingList)->m_state = f;
 #if defined(EMO_64BIT)
 		if(listSize <= 64)
-			static_cast<Buffer<64> *>(connectionList)->m_state = f;
+			static_cast<Buffer<64> *>(bindingList)->m_state = f;
 #endif // defined(EMO_64BIT)
 		
 		// Thats all.
@@ -137,34 +137,34 @@ public:
 	}
 	
 	static
-	void free(BufferBase *connectionList,
-	          EmoConnection *current,
+	void free(BufferBase *bindingList,
+	          EmoBinding *current,
 	          EmoSizeType listSize)
 	{
 		register BitFieldType f;
-		EmoConnection *b;
+		EmoBinding *b;
 		
 		// Load values.
 		if(listSize <= 8)
 		{
-			f = static_cast<Buffer<8> *>(connectionList)->m_state;
-			b = static_cast<Buffer<8> *>(connectionList)->m_list;
+			f = static_cast<Buffer<8> *>(bindingList)->m_state;
+			b = static_cast<Buffer<8> *>(bindingList)->m_list;
 		}
 		else if(listSize <= 16)
 		{
-			f = static_cast<Buffer<16> *>(connectionList)->m_state;
-			b = static_cast<Buffer<16> *>(connectionList)->m_list;
+			f = static_cast<Buffer<16> *>(bindingList)->m_state;
+			b = static_cast<Buffer<16> *>(bindingList)->m_list;
 		}
 		else if(listSize <= 32)
 		{
-			f = static_cast<Buffer<32> *>(connectionList)->m_state;
-			b = static_cast<Buffer<32> *>(connectionList)->m_list;
+			f = static_cast<Buffer<32> *>(bindingList)->m_state;
+			b = static_cast<Buffer<32> *>(bindingList)->m_list;
 		}
 #if defined(EMO_64BIT)
 		else if(listSize <= 64)
 		{
-			f = static_cast<Buffer<64> *>(connectionList)->m_state;
-			b = static_cast<Buffer<64> *>(connectionList)->m_list;
+			f = static_cast<Buffer<64> *>(bindingList)->m_state;
+			b = static_cast<Buffer<64> *>(bindingList)->m_list;
 		}
 #endif // defined(EMO_64BIT)
 		
@@ -176,14 +176,14 @@ public:
 		
 		// Save values.
 		if(listSize <= 8)
-			static_cast<Buffer<8> *>(connectionList)->m_state = f;
+			static_cast<Buffer<8> *>(bindingList)->m_state = f;
 		else if(listSize <= 16)
-			static_cast<Buffer<16> *>(connectionList)->m_state = f;
+			static_cast<Buffer<16> *>(bindingList)->m_state = f;
 		else if(listSize <= 32)
-			static_cast<Buffer<32> *>(connectionList)->m_state = f;
+			static_cast<Buffer<32> *>(bindingList)->m_state = f;
 #if defined(EMO_64BIT)
 		if(listSize <= 64)
-			static_cast<Buffer<64> *>(connectionList)->m_state = f;
+			static_cast<Buffer<64> *>(bindingList)->m_state = f;
 #endif // defined(EMO_64BIT)
 		
 		// NOTE We don't need to clear the field of the slot. It's just a good form.
@@ -191,33 +191,33 @@ public:
 	}
 	
 	static
-	EmoConnection *iterate(BufferBase *connectionList,
+	EmoBinding *iterate(BufferBase *bindingList,
 	                       EmoSizeType listSize)
 	{
 		register BitFieldType f;
-		EmoConnection *b;
+		EmoBinding *b;
 		
 		// Load values.
 		if(listSize <= 8)
 		{
-			f = static_cast<Buffer<8> *>(connectionList)->m_state;
-			b = static_cast<Buffer<8> *>(connectionList)->m_list;
+			f = static_cast<Buffer<8> *>(bindingList)->m_state;
+			b = static_cast<Buffer<8> *>(bindingList)->m_list;
 		}
 		else if(listSize <= 16)
 		{
-			f = static_cast<Buffer<16> *>(connectionList)->m_state;
-			b = static_cast<Buffer<16> *>(connectionList)->m_list;
+			f = static_cast<Buffer<16> *>(bindingList)->m_state;
+			b = static_cast<Buffer<16> *>(bindingList)->m_list;
 		}
 		else if(listSize <= 32)
 		{
-			f = static_cast<Buffer<32> *>(connectionList)->m_state;
-			b = static_cast<Buffer<32> *>(connectionList)->m_list;
+			f = static_cast<Buffer<32> *>(bindingList)->m_state;
+			b = static_cast<Buffer<32> *>(bindingList)->m_list;
 		}
 #if defined(EMO_64BIT)
 		else if(listSize <= 64)
 		{
-			f = static_cast<Buffer<64> *>(connectionList)->m_state;
-			b = static_cast<Buffer<64> *>(connectionList)->m_list;
+			f = static_cast<Buffer<64> *>(bindingList)->m_state;
+			b = static_cast<Buffer<64> *>(bindingList)->m_list;
 		}
 #endif // defined(EMO_64BIT)
 		
@@ -234,34 +234,34 @@ public:
 	}
 	
 	static
-	EmoConnection *next(BufferBase *connectionList,
-	                    EmoConnection *current,
+	EmoBinding *next(BufferBase *bindingList,
+	                    EmoBinding *current,
 	                    EmoSizeType listSize)
 	{
 		register BitFieldType f;
-		EmoConnection *b;
+		EmoBinding *b;
 		
 		// Load values.
 		if(listSize <= 8)
 		{
-			f = static_cast<Buffer<8> *>(connectionList)->m_state;
-			b = static_cast<Buffer<8> *>(connectionList)->m_list;
+			f = static_cast<Buffer<8> *>(bindingList)->m_state;
+			b = static_cast<Buffer<8> *>(bindingList)->m_list;
 		}
 		else if(listSize <= 16)
 		{
-			f = static_cast<Buffer<16> *>(connectionList)->m_state;
-			b = static_cast<Buffer<16> *>(connectionList)->m_list;
+			f = static_cast<Buffer<16> *>(bindingList)->m_state;
+			b = static_cast<Buffer<16> *>(bindingList)->m_list;
 		}
 		else if(listSize <= 32)
 		{
-			f = static_cast<Buffer<32> *>(connectionList)->m_state;
-			b = static_cast<Buffer<32> *>(connectionList)->m_list;
+			f = static_cast<Buffer<32> *>(bindingList)->m_state;
+			b = static_cast<Buffer<32> *>(bindingList)->m_list;
 		}
 #if defined(EMO_64BIT)
 		else if(listSize <= 64)
 		{
-			f = static_cast<Buffer<64> *>(connectionList)->m_state;
-			b = static_cast<Buffer<64> *>(connectionList)->m_list;
+			f = static_cast<Buffer<64> *>(bindingList)->m_state;
+			b = static_cast<Buffer<64> *>(bindingList)->m_list;
 		}
 #endif // defined(EMO_64BIT)
 		
@@ -286,7 +286,7 @@ public:
 	}
 	
 	static
-	EmoBool empty(BufferBase *connectionList,
+	EmoBool empty(BufferBase *bindingList,
 	              EmoSizeType listSize)
 	{
 		register BitFieldType f;
@@ -294,20 +294,20 @@ public:
 		// Load values.
 		if(listSize <= 8)
 		{
-			f = static_cast<Buffer<8> *>(connectionList)->m_state;
+			f = static_cast<Buffer<8> *>(bindingList)->m_state;
 		}
 		else if(listSize <= 16)
 		{
-			f = static_cast<Buffer<16> *>(connectionList)->m_state;
+			f = static_cast<Buffer<16> *>(bindingList)->m_state;
 		}
 		else if(listSize <= 32)
 		{
-			f = static_cast<Buffer<32> *>(connectionList)->m_state;
+			f = static_cast<Buffer<32> *>(bindingList)->m_state;
 		}
 #if defined(EMO_64BIT)
 		else if(listSize <= 64)
 		{
-			f = static_cast<Buffer<64> *>(connectionList)->m_state;
+			f = static_cast<Buffer<64> *>(bindingList)->m_state;
 		}
 #endif // defined(EMO_64BIT)
 		
@@ -316,11 +316,11 @@ public:
 	}
 	
 private:
-	EmoConnectionListEngine();
+	EmoBindingListEngine();
 };
 
 template <>
-class EmoConnectionListEngine<true>
+class EmoBindingListEngine<true>
 {
 public:
 	class BufferBase
@@ -332,21 +332,21 @@ public:
 		: public BufferBase
 	{
 	public:
-		EmoConnection m_list[NumberOfItems];
+		EmoBinding m_list[NumberOfItems];
 	};
 	
 	static
-	void initialize(BufferBase *connectionList,
+	void initialize(BufferBase *bindingList,
 	                EmoSizeType listSize)
 	{
-		emoMemSet(connectionList, 0, (listSize - 1) * sizeof(EmoConnection) + sizeof(Buffer<1>));
+		emoMemSet(bindingList, 0, (listSize - 1) * sizeof(EmoBinding) + sizeof(Buffer<1>));
 	}
 	
 	static
-	EmoConnection *allocate(BufferBase *connectionList,
+	EmoBinding *allocate(BufferBase *bindingList,
 	                        EmoSizeType listSize)
 	{
-		register EmoConnection *current = static_cast<Buffer<1> *>(connectionList)->m_list;
+		register EmoBinding *current = static_cast<Buffer<1> *>(bindingList)->m_list;
 		for(register EmoInt i = 0; i < listSize; ++i, ++current)
 			if(current->m_slot == 0)
 				return current;
@@ -354,18 +354,18 @@ public:
 	}
 	
 	static
-	void free(BufferBase *connectionList,
-	          EmoConnection *current,
+	void free(BufferBase *bindingList,
+	          EmoBinding *current,
 	          EmoSizeType listSize)
 	{
 		current->m_slot = 0;
 	}
 	
 	static
-	EmoConnection *iterate(BufferBase *connectionList,
+	EmoBinding *iterate(BufferBase *bindingList,
 	                       EmoSizeType listSize)
 	{
-		register EmoConnection *current = static_cast<Buffer<1> *>(connectionList)->m_list;
+		register EmoBinding *current = static_cast<Buffer<1> *>(bindingList)->m_list;
 		for(register EmoInt i = 0; i < listSize; ++i, ++current)
 			if(current->m_slot != 0)
 				return current;
@@ -373,11 +373,11 @@ public:
 	}
 	
 	static
-	EmoConnection *next(BufferBase *connectionList,
-	                    EmoConnection *current,
+	EmoBinding *next(BufferBase *bindingList,
+	                    EmoBinding *current,
 	                    EmoSizeType listSize)
 	{
-		register EmoInt i = current - static_cast<Buffer<1> *>(connectionList)->m_list;
+		register EmoInt i = current - static_cast<Buffer<1> *>(bindingList)->m_list;
 		while(++i < listSize)
 		{
 			if((++current)->m_slot != 0)
@@ -387,17 +387,17 @@ public:
 	}
 	
 	static inline
-	EmoBool empty(BufferBase *connectionList,
+	EmoBool empty(BufferBase *bindingList,
 	              EmoSizeType listSize)
 	{
-		return iterate(connectionList, listSize) == 0;
+		return iterate(bindingList, listSize) == 0;
 	}
 	
 private:
-	EmoConnectionListEngine();
+	EmoBindingListEngine();
 };
 
 EMO_END_NAMESPACE
 
-#endif // __EMO_CONNECTIONLISTENGINE_H
+#endif // __EMO_BINDINGLISTENGINE_H
 

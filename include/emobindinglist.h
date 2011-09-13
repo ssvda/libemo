@@ -19,34 +19,34 @@
 	Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-#ifndef __EMO_CONNECTIONLISTHEAD_H
-#define __EMO_CONNECTIONLISTHEAD_H
+#ifndef __EMO_BINDINGLISTHEAD_H
+#define __EMO_BINDINGLISTHEAD_H
 
 #include <emodefs.h>
 #include <emotypes.h>
-#include <emoconnectionlistnode.h>
-#include <emoconnectionlistnodebase.h>
-#include <emoconnectionlistengine.h>
+#include <emobindinglistnode.h>
+#include <emobindinglistnodebase.h>
+#include <emobindinglistengine.h>
 
 EMO_BEGIN_NAMESPACE
 
 template <EmoSizeType NumberOfItems,
           EmoSizeType ItemsInExtend>
-class EmoConnectionList
-	:public EmoConnectionListNodeBase<(NumberOfItems > EMO_BUS_WIDTH)>
+class EmoBindingList
+	:public EmoBindingListNodeBase<(NumberOfItems > EMO_BUS_WIDTH)>
 {
 public:
-	typedef typename EmoConnectionListNodeBase<(NumberOfItems > EMO_BUS_WIDTH)>::ListEngine ListEngine;
+	typedef typename EmoBindingListNodeBase<(NumberOfItems > EMO_BUS_WIDTH)>::ListEngine ListEngine;
 	typedef typename ListEngine::template Buffer<NumberOfItems> ListBuffer;
-	typedef EmoConnectionList<NumberOfItems, ItemsInExtend> NodeType;
-	typedef EmoConnectionListNode<ItemsInExtend> ExtendType;
+	typedef EmoBindingList<NumberOfItems, ItemsInExtend> NodeType;
+	typedef EmoBindingListNode<ItemsInExtend> ExtendType;
 	
-	EmoConnectionList()
+	EmoBindingList()
 		:m_next(0)
 	{
 		ListEngine::initialize(&this->m_buffer, NumberOfItems);
 	}
-	~EmoConnectionList()
+	~EmoBindingList()
 	{
 		this->reduce();
 	}
@@ -70,10 +70,10 @@ private:
 	}
 	
 public:
-	EmoConnection *connect(EmoConnection *source)
+	EmoBinding *bind(EmoBinding *source)
 	{
-		register EmoConnection *connection = this->doConnect(source, &this->m_buffer, NumberOfItems);
-		if(connection == 0)
+		register EmoBinding *binding = this->doBind(source, &this->m_buffer, NumberOfItems);
+		if(binding == 0)
 		{
 			this->extend();
 			register ExtendType *e;
@@ -81,28 +81,28 @@ public:
 			do
 			{
 				e = n;
-				connection = e->connect(source);
+				binding = e->bind(source);
 				n = e->next();
 			}
-			while(n != 0 && connection != 0);
-			if(connection == 0)
+			while(n != 0 && binding != 0);
+			if(binding == 0)
 			{
 				e->extend();
-				e->next()->connect(source);
+				e->next()->bind(source);
 			}
 		}
-		return connection;
+		return binding;
 	}
 	
-	void disconnect(EmoConnection *pattern)
+	void unbind(EmoBinding *pattern)
 	{
-		this->doDisconnect(pattern, &this->m_buffer, NumberOfItems);
+		this->doUnbind(pattern, &this->m_buffer, NumberOfItems);
 		if(this->m_next != 0)
 		{
 			register ExtendType *e = this->m_next;
 			while(e != 0)
 			{
-				e->disconnect(pattern);
+				e->unbind(pattern);
 				e = e->next();
 			}
 		}
@@ -142,5 +142,5 @@ private:
 
 EMO_END_NAMESPACE
 
-#endif // __EMO_CONNECTIONLISTHEAD_H
+#endif // __EMO_BINDINGLISTHEAD_H
 

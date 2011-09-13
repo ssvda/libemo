@@ -19,26 +19,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 /**
 \internal
-\file emoconnection.h
+\file emobindinglist.h
 
-\~english \brief Declarations structure to implement low-level connection.
+\~english \brief 
 
-\~russian \brief Определения низкоуровневой структуры представления соединения.
+\~russian \brief 
 */
 
-/**
-\internal
-\class EmoConnection
 
-\~english \brief Low-level connection representation.
-
-\~russian \brief Низкоуровневое представление соединения.
-
-\~english
-This structure implements a connection (i.e. link between some object,
-its slot and some instance of signal, belong to enother object).
-
-\~russian
-Эта структура представляет соединение (т.е. связь между некоторым объектом,
-его слотом и сигналом какого-то другого объекта.
-*/

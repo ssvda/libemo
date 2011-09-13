@@ -63,27 +63,27 @@ protected:
 	
 	struct ListExtend
 	{
-		EmoConnection m_list[ExtendPortion];
+		EmoBinding m_list[ExtendPortion];
 		ListExtend *m_next;
 	};
 	
 	struct ListHead
 	{
 		ListStateType m_state;
-		EmoConnection m_list[FirstPortion];
+		EmoBinding m_list[FirstPortion];
 		ListExtend *m_next;
 	};
 	
 	typedef ListExtend *IterationState;
 	
 	inline
-	EmoConnection *allocate();
+	EmoBinding *allocate();
 	inline
-	void free(EmoConnection *connection);
+	void free(EmoBinding *binding);
 	inline
 	void iterate(IterationState *state);
 	inline
-	EmoConnection *next(IterationState *state);
+	EmoBinding *next(IterationState *state);
 	
 public:
 	void clear();
@@ -92,7 +92,7 @@ public:
 template <EmoAllocationType p_AT,
           unsigned int p_FP,
           unsigned int p_EP>
-EmoConnection *EmoSignalInternalsBase<p_AT, p_FP, p_EP>::allocate()
+EmoBinding *EmoSignalInternalsBase<p_AT, p_FP, p_EP>::allocate()
 {
 	
 }

@@ -34,19 +34,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 \param DynamicalAllocation Is internal implementation should
 allocated dynamicly?
 \param StaticalPortion Number of record in general list
-of connections.
+of bindings.
 \param DynamicalPortion Number of records in each additional
-portion to extend list of connections.
+portion to extend list of bindings.
 
 Signal internal implementation class store so-called
-general list of signal connections. It's general cause
+general list of signal bindings. It's general cause
 of overhead in slot-signal technology.
 
 EMO Library provide flexible configuration for
-general list of connection allocation.
+general list of binding allocation.
 
-Statical allocation for general list of connections
-suit to signals with many connections. Such signals
+Statical allocation for general list of bindings
+suit to signals with many bindings. Such signals
 may be created with \p DynamicalAllocation setted to
 \c false.
 
@@ -55,12 +55,12 @@ allocation of signal internals by setting
 \p DynamicalAllocation to true.
 
 \p StaticalPortion parameter determines
-base size of general connections list. It shall
+base size of general bindings list. It shall
 allocated staticly if \p DynamicalAllocation is \c false.
 Otherwise it placed dynamicly.
 
 \p DynamicPortion parameter determines size of
-blocks to extend general list of connections
+blocks to extend general list of bindings
 when \p StaticalPortion block is out.
 Special value \c 0 shall suppress dynamical
 allocation of extends.
@@ -114,8 +114,8 @@ allocation of extends.
 \class Emo::EmoSignalInternals::Conection
 \internal
 
-\~english \breif Type of single connection-ceil in
-list of connections.
+\~english \breif Type of single binding-ceil in
+list of bindings.
 
 \~russian \brief Тип элементарной ячейки соединения
 в списке соединений.
