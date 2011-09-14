@@ -139,7 +139,6 @@ public:
 	
 	inline
 	EmoMetaContainer()
-		:m_element()
 	{}
 	
 	inline
