@@ -81,7 +81,7 @@ public:
 	
 	static
 	EmoBinding *allocate(BufferBase *bindingList,
-	                        EmoSizeType listSize)
+	                     EmoSizeType listSize)
 	{
 		register BitFieldType f;
 		EmoBinding *b;
@@ -192,7 +192,7 @@ public:
 	
 	static
 	EmoBinding *iterate(BufferBase *bindingList,
-	                       EmoSizeType listSize)
+	                    EmoSizeType listSize)
 	{
 		register BitFieldType f;
 		EmoBinding *b;
@@ -235,8 +235,8 @@ public:
 	
 	static
 	EmoBinding *next(BufferBase *bindingList,
-	                    EmoBinding *current,
-	                    EmoSizeType listSize)
+	                 EmoBinding *current,
+	                 EmoSizeType listSize)
 	{
 		register BitFieldType f;
 		EmoBinding *b;
@@ -344,7 +344,7 @@ public:
 	
 	static
 	EmoBinding *allocate(BufferBase *bindingList,
-	                        EmoSizeType listSize)
+	                     EmoSizeType listSize)
 	{
 		register EmoBinding *current = static_cast<Buffer<1> *>(bindingList)->m_list;
 		for(register EmoInt i = 0; i < listSize; ++i, ++current)
@@ -374,8 +374,8 @@ public:
 	
 	static
 	EmoBinding *next(BufferBase *bindingList,
-	                    EmoBinding *current,
-	                    EmoSizeType listSize)
+	                 EmoBinding *current,
+	                 EmoSizeType listSize)
 	{
 		register EmoInt i = current - static_cast<Buffer<1> *>(bindingList)->m_list;
 		while(++i < listSize)
