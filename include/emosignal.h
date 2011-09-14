@@ -32,25 +32,48 @@ EMO_BEGIN_NAMESPACE
 class EmoObject;
 class EmoSlotBase;
 
-template <typename SignalTypeBinding,
+EMO_BEGIN_INTERNAL_NAMESPACE
+
+template <typename SignalType>
+inline
+void emoCall(SignalType &signal,
+             void **arguments)
+{
+	signal.call(arguments);
+}
+
+EMO_END_INTERNAL_NAMESPACE
+
+template <typename SignalMasterType,
           typename SignalInternals = EmoDefaultSignalInternals>
 class EmoSignal
 {
+	template <typename SignalType>
+	friend Intern::emoCall(SignalType, void **);
+	
 public:
-	typedef SignalTypeBinding TypeBinding;
-	typedef typename SignalTypeBinding::MasterType MasterType;
-	
-	EmoSignal();
-	~EmoSignal();
-	
-	void disconectFromObject(EmoObject *);
+	typedef SignalMasterType MasterType;
 	
 protected:
-	void bind(EmoSlotBase *slot, EmoObject *reciver);
-	void unbind(EmoSlotBase *slot, EmoObject *reciver);
-	void emoCall(void **a);
+	inline
+	void bind(EmoSlotBase *slot, EmoObject *reciver)
+	{
+		this->m_int.bind(slot, reciver);
+	}
+	
+	inline
+	void unbind(EmoSlotBase *slot, EmoObject *reciver)
+	{
+		this->m_int.unbind(slot, reciver);
+	}
 	
 private:
+	inline
+	void call(void **a)
+	{
+		this->m_int.call(a);
+	}
+	
 	SignalInternals m_int;
 };
 

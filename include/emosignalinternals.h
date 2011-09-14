@@ -24,93 +24,43 @@
 
 #include <emodefs.h>
 #include <emotypes.h>
+#include <emobinding.h>
 #include <emomemory.h>
 #include <emometacontainer.h>
+#include <emobindinglistnode.h>
+#include <emobindinglist.h>
 
 EMO_BEGIN_NAMESPACE
 
-// Forward declarations
-class EmoObject;
-class EmoSlotBase;
-
-/*
-	Задачи внутренностей сигнала:
-	 - Хранить список соединений в выбранной форме
-	 - Осуществлять вставку в список.
-	    bind()
-	 - Осуществлять удаление из списка.
-	    unbind()
-	    clear()
-	 - Осуществлять рассылку по всем элементам списка.
-	    emit()
-*/
-
-template <EmoAllocationType p_AllocationType,
-          unsigned int p_FirstPortion,
-          unsigned int p_ExtendPortion>
-class EmoSignalInternalsBaseс
-{
-public:
-	enum
-	{
-		AllocationType = p_AllocationType,
-		FirstPortion = p_FirstPortion,
-		ExtendPortion = p_ExtendPortion
-	};
-	
-protected:
-	typedef unsigned int ListStateType;
-	
-	struct ListExtend
-	{
-		EmoBinding m_list[ExtendPortion];
-		ListExtend *m_next;
-	};
-	
-	struct ListHead
-	{
-		ListStateType m_state;
-		EmoBinding m_list[FirstPortion];
-		ListExtend *m_next;
-	};
-	
-	typedef ListExtend *IterationState;
-	
-	inline
-	EmoBinding *allocate();
-	inline
-	void free(EmoBinding *binding);
-	inline
-	void iterate(IterationState *state);
-	inline
-	EmoBinding *next(IterationState *state);
-	
-public:
-	void clear();
-};
-
-template <EmoAllocationType p_AT,
-          unsigned int p_FP,
-          unsigned int p_EP>
-EmoBinding *EmoSignalInternalsBase<p_AT, p_FP, p_EP>::allocate()
-{
-	
-}
-
-template <EmoAllocationType p_AllocationType,
-          unsigned int p_FirstPortion,
-          unsigned int p_ExtendPortion>
+template <EmoAllocationType AllocationType,
+          unsigned int FirstPortion,
+          unsigned int ExtendPortion>
 class EmoSignalInternals
-	:public EmoSignalInternalsBase<p_AllocationType, p_FirstPortion, p_ExtendPortion>
 {
 public:
+	typedef EmoBindingList<FirstPortion, ExtendPortion> ListType;
+	
+	inline
+	void bind(EmoBinding *source)
+	{
+		this->m_container.element().bind(source);
+	}
+	
+	inline
+	void unbind(EmoBinding *pattern)
+	{
+		this->m_container.element().unbind(pattern);
+	}
+	
+	inline
+	void call(void **a)
+	{
+		this->m_container.element().call(a);
+	}
+	
+private:
+	EmoMetaContainer<ListType, AllocationType> m_container;
 };
-
-typedef EmoSignalInternals<DynamicalAllocation, 2, 2>  EmoDefaultSignalInternals;
-typedef EmoSignalInternals<StaticalAllocation, 1, 1>   EmoTinySignalInternals;
-typedef EmoSignalInternals<DynamicalAllocation, 0, 2>  EmoDynamicalSignalInternals;
-typedef EmoSignalInternals<StaticalAllocation, 4, 0>   EmoStaticalSignalInternals;
-typedef EmoSignalInternals<DynamicalAllocation, 4, 4>  EmoHugeSignalInternals;
 
 EMO_END_NAMESPACE
 
