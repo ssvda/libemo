@@ -36,7 +36,7 @@ enum EmoAllocationType
 };
 
 template <typename ValueType,
-          EmoAllocationType useDynamicAllocation>
+          EmoAllocationType =  DynamicalAllocation>
 class EmoMetaContainer
 {
 private:
