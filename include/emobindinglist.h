@@ -140,6 +140,51 @@ private:
 	ListBuffer m_buffer;
 };
 
+template <EmoSizeType NumberOfItems>
+class EmoBindingList<NumberOfItems, 0>
+	:public EmoBindingListNodeBase<(NumberOfItems > EMO_BUS_WIDTH)>
+{
+public:
+	typedef typename EmoBindingListNodeBase<(NumberOfItems > EMO_BUS_WIDTH)>::ListEngine ListEngine;
+	typedef typename ListEngine::template Buffer<NumberOfItems> ListBuffer;
+	typedef EmoBindingList<NumberOfItems, 0> NodeType;
+	
+	EmoBindingList()
+	{
+		ListEngine::initialize(&this->m_buffer, NumberOfItems);
+	}
+	
+public:
+	EmoBinding *bind(EmoBinding *source)
+	{
+		return this->doBind(source, &this->m_buffer, NumberOfItems);
+	}
+	
+	void unbind(EmoBinding *pattern)
+	{
+		this->doUnbind(pattern, &this->m_buffer, NumberOfItems);
+	}
+	
+	void call(void **arguments)
+	{
+		this->doCall(arguments, &this->m_buffer, NumberOfItems);
+	}
+	
+	inline
+	void clear()
+	{
+		ListEngine::initialize(&this->m_buffer, NumberOfItems);
+	}
+	
+	inline
+	void optimize()
+	{
+	}
+	
+private:
+	ListBuffer m_buffer;
+};
+
 EMO_END_NAMESPACE
 
 #endif // __EMO_BINDINGLISTHEAD_H
