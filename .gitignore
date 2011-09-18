@@ -51,6 +51,8 @@ LibEmoConfig.cmake
 *.o
 *.a
 *.so
+*.ii
+*.s
 
 ### Ignore Doxygen Files
 Doxyfile.*
