@@ -9,6 +9,13 @@ using namespace Emo;
 #	define UNITTEST_NAME BindingListEngineTest
 #endif
 
+class MocSlot : public EmoSlotBase
+{
+	void call(void**)
+	{
+	}
+};
+
 template <EmoBool IsItWiderThanBus>
 class UNITTEST_NAME : public CppUnit::TestFixture
 {
@@ -42,7 +49,7 @@ public:
 		{
 			bindings[i] = Engine::allocate(&buffer, size);
 			CPPUNIT_ASSERT(bindings[i] != 0);
-			bindings[i]->m_slot = new EmoSlotBase;
+			bindings[i]->m_slot = new MocSlot;
 		}
 
 		CPPUNIT_ASSERT(Engine::allocate(&buffer, size) == 0);
@@ -72,7 +79,7 @@ public:
 
 		CPPUNIT_ASSERT(Engine::iterate(&buffer, size) == 0);
 		EmoBinding *binding = Engine::allocate(&buffer, size);
-		binding->m_slot = new EmoSlotBase;
+		binding->m_slot = new MocSlot;
 
 		CPPUNIT_ASSERT(Engine::iterate(&buffer, size) == binding);
 
@@ -92,7 +99,7 @@ public:
 		{
 			bindings[i] = Engine::allocate(&buffer, size);
 			CPPUNIT_ASSERT(bindings[i] != 0);
-			bindings[i]->m_slot = new EmoSlotBase;
+			bindings[i]->m_slot = new MocSlot;
 		}
 
 		CPPUNIT_ASSERT(Engine::allocate(&buffer, size) == 0);
@@ -127,7 +134,7 @@ public:
 		{
 			bindings[i] = Engine::allocate(&buffer, size);
 			CPPUNIT_ASSERT(bindings[i] != 0);
-			bindings[i]->m_slot = new EmoSlotBase;
+			bindings[i]->m_slot = new MocSlot;
 		}
 
 		CPPUNIT_ASSERT(Engine::allocate(&buffer, size) == 0);
