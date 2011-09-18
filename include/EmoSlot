@@ -19,21 +19,5 @@
 	Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-#ifndef __EMO_SLOTBASE_H
-#define __EMO_SLOTBASE_H
-
-#include <emodefs.h>
-
-EMO_BEGIN_NAMESPACE
-
-class EmoSlotBase
-{
-public:
-	//virtual
-	//void call(void **a) = 0;
-};
-
-EMO_END_NAMESPACE
-
-#endif // __EMO_SLOTBASE_H
+#include <emoslot.h>
 

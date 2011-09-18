@@ -19,21 +19,30 @@
 	Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-#ifndef __EMO_SLOTBASE_H
-#define __EMO_SLOTBASE_H
+#ifndef __EMO_SLOT_H
+#define __EMO_SLOT_H
 
 #include <emodefs.h>
+#include <emoslotmastertype.h>
 
 EMO_BEGIN_NAMESPACE
 
-class EmoSlotBase
+template <typename SlotMasterType,
+          typename MemberFunction>
+class EmoSlot
 {
-public:
-	//virtual
-	//void call(void **a) = 0;
+private:
+	EmoSlot();
 };
+
+#define EMO_SLOT(SLOTNAME) \
+		EMO_SLOT_MASTER_TYPE(SLOTNAME), void (EMO_SLOT_MASTER_TYPE(SLOTNAME)::*)
+
+#if defined(EMO_DO_NOT_EXPORT_WITHOUT_PREFIX)
+#	define SLOT(SLOTNAME) EMO_SLOT(SLOTNAME)
+#endif // defined(EMO_DO_NOT_EXPORT_WITHOUT_PREFIX)
 
 EMO_END_NAMESPACE
 
-#endif // __EMO_SLOTBASE_H
+#endif // __EMO_SLOT_H
 

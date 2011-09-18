@@ -19,21 +19,48 @@
 	Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-#ifndef __EMO_SLOTBASE_H
-#define __EMO_SLOTBASE_H
+#ifndef __EMO_SLOTMASTERTYPE_H
+#define __EMO_SLOTMASTERTYPE_H
 
 #include <emodefs.h>
 
 EMO_BEGIN_NAMESPACE
 
-class EmoSlotBase
+EMO_BEGIN_INTERNAL_NAMESPACE
+
+struct EmoSlotBinding
 {
-public:
-	//virtual
-	//void call(void **a) = 0;
 };
+
+typedef void (*EmoSlotBindingFunction)(EmoSlotBinding);
+
+EMO_END_INTERNAL_NAMESPACE
+
+template <Intern::EmoSlotBindingFunction Binding>
+class EmoSlotMasterType
+{
+private:
+	EmoSlotMasterType();
+};
+
+#define EMO_SLOT_MASTER_TYPE(SLOTNAME) \
+		Emo::EmoSlotMasterType<&SLOTNAME>::MasterType
+
+#define EMO_REGISTER_SLOT_MASTER_TYPE(SLOTNAME,MASTER) \
+		EMO_BEGIN_NAMESPACE \
+		template <> \
+		class EmoSlotMasterType<&SLOTNAME> \
+		{ \
+		public: \
+			typedef MASTER MasterType; \
+		}; \
+		EMO_END_NAMESPACE
+
+#define EMO_SLOT_MASTER_TYPE_BINDING(SLOTNAME) \
+		static \
+		void SLOTNAME(Emo::Intern::EmoSlotBinding);
 
 EMO_END_NAMESPACE
 
-#endif // __EMO_SLOTBASE_H
+#endif // __EMO_SLOTMASTERTYPE_H
 
