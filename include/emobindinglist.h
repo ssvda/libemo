@@ -70,7 +70,7 @@ private:
 	}
 	
 public:
-	EmoBinding *bind(EmoBinding *source)
+	EmoBinding *bind(const EmoBinding *source)
 	{
 		register EmoBinding *binding = this->doBind(source, &this->m_buffer, NumberOfItems);
 		if(binding == 0)
@@ -94,7 +94,7 @@ public:
 		return binding;
 	}
 	
-	void unbind(EmoBinding *pattern)
+	void unbind(const EmoBinding *pattern)
 	{
 		this->doUnbind(pattern, &this->m_buffer, NumberOfItems);
 		if(this->m_next != 0)

@@ -41,15 +41,15 @@ public:
 	typedef EmoBindingList<FirstPortion, ExtendPortion> ListType;
 	
 	inline
-	void bind(EmoBinding *source)
+	void bind(const EmoBinding &source)
 	{
-		this->m_container.element().bind(source);
+		this->m_container.element().bind(&source);
 	}
 	
 	inline
-	void unbind(EmoBinding *pattern)
+	void unbind(const EmoBinding &pattern)
 	{
-		this->m_container.element().unbind(pattern);
+		this->m_container.element().unbind(&pattern);
 	}
 	
 	inline

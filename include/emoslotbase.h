@@ -29,8 +29,8 @@ EMO_BEGIN_NAMESPACE
 class EmoSlotBase
 {
 public:
-	//virtual
-	//void call(void **a) = 0;
+	virtual
+	void call(void **a) = 0;
 };
 
 EMO_END_NAMESPACE

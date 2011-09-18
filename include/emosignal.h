@@ -45,7 +45,7 @@ void emoCall(SignalType &signal,
 EMO_END_INTERNAL_NAMESPACE
 
 template <typename SignalMasterType,
-          typename SignalInternals = EmoDefaultSignalInternals>
+          typename SignalInternals /*= EmoDefaultSignalInternals*/>
 class EmoSignal
 {
 	template <typename SignalType>
@@ -54,17 +54,16 @@ class EmoSignal
 public:
 	typedef SignalMasterType MasterType;
 	
-protected:
 	inline
 	void bind(EmoSlotBase *slot, EmoObject *reciver)
 	{
-		this->m_int.bind(slot, reciver);
+		this->m_int.bind(EmoBinding(slot, reciver));
 	}
 	
 	inline
 	void unbind(EmoSlotBase *slot, EmoObject *reciver)
 	{
-		this->m_int.unbind(slot, reciver);
+		this->m_int.unbind(EmoBinding(slot, reciver));
 	}
 	
 private:

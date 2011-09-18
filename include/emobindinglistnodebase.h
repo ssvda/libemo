@@ -26,6 +26,7 @@
 #include <emotypes.h>
 #include <emobinding.h>
 #include <emobindinglistengine.h>
+#include <emoslotbase.h>
 
 EMO_BEGIN_NAMESPACE
 
@@ -37,7 +38,7 @@ public:
 	typedef typename ListEngine::BufferBase BufferBase;
 	
 protected:
-	EmoBinding *doBind(EmoBinding *source,
+	EmoBinding *doBind(const EmoBinding *source,
 	                   BufferBase *buffer,
 	                   EmoSizeType numberOfItems)
 	{
@@ -50,7 +51,7 @@ protected:
 		return binding;
 	}
 	
-	void doUnbind(EmoBinding *pattern,
+	void doUnbind(const EmoBinding *pattern,
 	              BufferBase *buffer,
 	              EmoSizeType numberOfItems)
 	{
