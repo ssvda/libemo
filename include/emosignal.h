@@ -32,25 +32,10 @@ EMO_BEGIN_NAMESPACE
 class EmoObject;
 class EmoSlotBase;
 
-EMO_BEGIN_INTERNAL_NAMESPACE
-
-template <typename SignalType>
-inline
-void emoCall(SignalType &signal,
-             void **arguments)
-{
-	signal.call(arguments);
-}
-
-EMO_END_INTERNAL_NAMESPACE
-
 template <typename SignalMasterType,
           typename SignalInternals /*= EmoDefaultSignalInternals*/>
 class EmoSignal
 {
-	template <typename SignalType>
-	friend Intern::emoCall(SignalType, void **);
-	
 public:
 	typedef SignalMasterType MasterType;
 	
@@ -66,7 +51,7 @@ public:
 		this->m_int.unbind(EmoBinding(slot, reciver));
 	}
 	
-private:
+protected:
 	inline
 	void call(void **a)
 	{

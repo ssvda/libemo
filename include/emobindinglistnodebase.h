@@ -83,7 +83,7 @@ protected:
 		register EmoBinding *binding = ListEngine::iterate(buffer, numberOfItems);
 		while(binding != 0)
 		{
-			binding->m_slot->call(arguments);
+			binding->m_slot->call(binding->m_object, arguments);
 			binding = ListEngine::next(buffer, binding, numberOfItems);
 		}
 	}
