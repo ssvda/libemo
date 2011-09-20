@@ -11,7 +11,7 @@ using namespace Emo;
 
 class MocSlot : public EmoSlotBase
 {
-	void call(void**)
+	void call(EmoObject *, void**)
 	{
 	}
 };
