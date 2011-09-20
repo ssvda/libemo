@@ -90,6 +90,11 @@ public:
 	};
 	
 	inline
+	EmoMetaContainer()
+		:m_element(0)
+	{}
+	
+	inline
 	~EmoMetaContainer()
 	{
 		this->free();
@@ -99,7 +104,7 @@ public:
 	void allocate()
 	{
 		if(this->m_element == 0)
-			this->m_element = emoAlloc<ElementType>;
+			this->m_element = emoAlloc<ElementType>();
 	}
 	inline
 	void free()
