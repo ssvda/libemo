@@ -62,6 +62,11 @@ private:
 	EmoMetaContainer<ListType, AllocationType> m_container;
 };
 
+typedef EmoSignalInternals<Emo::DynamicalAllocation, 2, 2>      EmoDefaultSignalInternals;
+typedef EmoSignalInternals<Emo::StaticalAllocation,  4, 0>      EmoStaticSignalInternals;
+typedef EmoSignalInternals<Emo::StaticalAllocation,  1, 1>      EmoTinySignalInternals;
+typedef EmoSignalInternals<Emo::StaticalAllocation,  4, 4>      EmoHugeSignalInternals;
+
 EMO_END_NAMESPACE
 
 #endif // __EMO_SIGNALINTRNALS_H

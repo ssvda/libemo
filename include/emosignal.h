@@ -33,7 +33,7 @@ class EmoObject;
 class EmoSlotBase;
 
 template <typename SignalMasterType,
-          typename SignalInternals /*= EmoDefaultSignalInternals*/>
+          typename SignalInternals = EmoDefaultSignalInternals>
 class EmoSignal
 {
 public:
