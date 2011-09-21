@@ -9,7 +9,8 @@ using namespace Emo;
 #	define UNITTEST_NAME BindingListEngineTest
 #endif
 
-class MocSlot : public EmoSlotBase
+class MocSlot
+	:public EmoSlotBase
 {
 	void call(EmoObject *, void**)
 	{
