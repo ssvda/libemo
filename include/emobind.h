@@ -30,12 +30,13 @@
 EMO_BEGIN_NAMESPACE
 
 template <typename SlotMasterType,
+          Intern::EmoSlotBindingFunction Binding,
           typename SlotFunction,
           typename SignalType>
 void emoBind(SlotMasterType *receiver,
              SignalType     &signal)
 {
-	typedef EmoSlot<SlotMasterType, SlotFunction> SlotType;
+	typedef EmoSlot<SlotMasterType, Binding, SlotFunction> SlotType;
 	signal.bind(SlotType::instance(), receiver);
 	static_cast<typename SlotType::Signature>(static_cast<typename SignalType::Signature>(0));
 }

@@ -28,6 +28,7 @@
 EMO_BEGIN_NAMESPACE
 
 template <typename SlotMasterType,
+          Intern::EmoSlotBindingFunction Binding,
           typename MemberFunction>
 class EmoSlot
 {
@@ -36,7 +37,7 @@ private:
 };
 
 #define EMO_SLOT(SLOTNAME) \
-		EMO_SLOT_MASTER_TYPE(SLOTNAME), void (EMO_SLOT_MASTER_TYPE(SLOTNAME)::*)
+		EMO_SLOT_MASTER_TYPE(SLOTNAME), SLOTNAME, void (EMO_SLOT_MASTER_TYPE(SLOTNAME)::*)
 
 #define EMO_SLOT_DECL(SLOTNAME, SIGNATURE, ARGUMENTS) \
 		EMO_BEGIN_NAMESPACE \
