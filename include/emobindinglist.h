@@ -155,12 +155,12 @@ public:
 	}
 	
 public:
-	EmoBinding *bind(EmoBinding *source)
+	EmoBinding *bind(const EmoBinding *source)
 	{
 		return this->doBind(source, &this->m_buffer, NumberOfItems);
 	}
 	
-	void unbind(EmoBinding *pattern)
+	void unbind(const EmoBinding *pattern)
 	{
 		this->doUnbind(pattern, &this->m_buffer, NumberOfItems);
 	}
