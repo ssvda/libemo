@@ -25,6 +25,7 @@
 
 # General list of all c-style headers.
 set (EMO_CSTYLE_HEADERS_LIST
+	emoobject.h
 	emobind.h
 	emoslotmastertype.h
 	emoslot.h
@@ -48,6 +49,7 @@ set (EMO_CSTYLE_HEADERS_LIST
 
 # General list of all Qt-style headers.
 set (EMO_QTSTYLE_HEADERS_LIST
+	EmoObject
 	EmoSlot
 	EmoSignal
 )
@@ -67,6 +69,7 @@ set (EMO_SOURCES_LIST
 
 # Doxygen documentation for sources.
 set (EMO_SOURCES_DOX_LIST
+	emoobject.dox
 	emobind.dox
 	emoslotmastertype.dox
 	emoslot.dox
