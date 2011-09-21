@@ -76,7 +76,7 @@ void emoDoNothing(...) {}
 			inline \
 			void operator() SIGNATURE \
 			{ \
-				void *__emoSignalArgumentList[NUMOFARGS]; \
+				void *__emoSignalArgumentList[(NUMOFARGS == 0) ? 1 : (NUMOFARGS)]; \
 				emoDoNothing ARGUMENTS; \
 				this->call(__emoSignalArgumentList); \
 			} \
