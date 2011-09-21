@@ -38,9 +38,37 @@ private:
 #define EMO_SLOT(SLOTNAME) \
 		EMO_SLOT_MASTER_TYPE(SLOTNAME), void (EMO_SLOT_MASTER_TYPE(SLOTNAME)::*)
 
-#if defined(EMO_DO_NOT_EXPORT_WITHOUT_PREFIX)
-#	define SLOT(SLOTNAME) EMO_SLOT(SLOTNAME)
-#endif // defined(EMO_DO_NOT_EXPORT_WITHOUT_PREFIX)
+#define EMO_SLOT_DECL(SLOTNAME, SIGNATURE, ARGUMENTS) \
+		EMO_BEGIN_NAMESPACE \
+		template <> \
+		class EmoSlot<EMO_SLOT(SLOTNAME)SIGNATURE> \
+			:public EmoSlotBase \
+		{ \
+		public: \
+			typedef EmoSlot<EMO_SLOT(SLOTNAME)SIGNATURE> SlotType; \
+			typedef EMO_SLOT_MASTER_TYPE(SLOTNAME) MasterType; \
+			typedef void (*Signature)SIGNATURE; \
+			static \
+			SlotType *instance() \
+			{ \
+				static SlotType slot; \
+				return &slot; \
+			} \
+			void call(EmoObject *o, void **a) \
+			{ \
+				static_cast<MasterType *>(o)->SLOTNAME ARGUMENTS; \
+			} \
+		}; \
+		EMO_END_NAMESPACE
+
+#define EMO_SLOT_ARGUMENT(N, TYPE) \
+		*static_cast< TYPE *>(a[N])
+
+// Just some abbreviations:
+#define EMO_SLOTS(SLOTNAME) \
+		EMO_SLOT_MASTER_TYPE_BINDING(SLOTNAME)
+#define EMO_MASTER(SLOTNAME, MASTERTYPE) \
+		EMO_REGISTER_SLOT_MASTER_TYPE(SLOTNAME, MASTERTYPE)
 
 EMO_END_NAMESPACE
 

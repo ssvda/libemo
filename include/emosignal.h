@@ -61,6 +61,30 @@ protected:
 	SignalInternals m_int;
 };
 
+inline
+void emoDoNothing(...) {}
+
+#define EMO_SIGNAL_ARGUMENT(N, NAME) \
+		(__emoSignalArgumentList[N] = &NAME)
+
+#define EMO_SIGNAL_X(MASTERTYPE, INTERNALS, SIGNATURE, NUMOFARGS, ARGUMENTS) \
+		class \
+			:public Emo::EmoSignal<MASTERTYPE, INTERNALS>\
+		{ \
+		public: \
+			typedef void (*Signature)SIGNATURE; \
+			inline \
+			void operator() SIGNATURE \
+			{ \
+				void *__emoSignalArgumentList[NUMOFARGS]; \
+				emoDoNothing ARGUMENTS; \
+				this->call(__emoSignalArgumentList); \
+			} \
+		}
+
+#define EMO_SIGNAL(MASTERTYPE, SIGNATURE, NUMOFARGS, ARGUMENTS) \
+		EMO_SIGNAL_X(MASTERTYPE, Emo::EmoDefaultSignalInternals, SIGNATURE, NUMOFARGS, ARGUMENTS)
+
 EMO_END_NAMESPACE
 
 #endif // __EMO_SIGNAL_H
