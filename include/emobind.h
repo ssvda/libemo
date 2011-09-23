@@ -33,12 +33,26 @@ template <typename SlotMasterType,
           Intern::EmoSlotBindingFunction Binding,
           typename SlotFunction,
           typename SignalType>
+inline
 void emoBind(SlotMasterType *receiver,
              SignalType     &signal)
 {
 	typedef EmoSlot<SlotMasterType, Binding, SlotFunction> SlotType;
 	signal.bind(SlotType::instance(), receiver);
-	static_cast<typename SlotType::Signature>(static_cast<typename SignalType::Signature>(0));
+	static_cast<void>(static_cast<typename SlotType::Signature>(static_cast<typename SignalType::Signature>(0)));
+}
+
+template <typename SlotMasterType,
+          Intern::EmoSlotBindingFunction Binding,
+          typename SlotFunction,
+          typename SignalType>
+inline
+void emoUnbind(SlotMasterType *receiver,
+               SignalType     &signal)
+{
+	typedef EmoSlot<SlotMasterType, Binding, SlotFunction> SlotType;
+	signal.unbind(SlotType::instance(), receiver);
+	static_cast<void>(static_cast<typename SlotType::Signature>(static_cast<typename SignalType::Signature>(0)));
 }
 
 EMO_END_NAMESPACE
