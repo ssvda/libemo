@@ -19,19 +19,18 @@
 	Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-#ifndef __EMO_OBJECT_H
-#define __EMO_OBJECT_H
+#ifndef __EMO_OBJECTBASE_H
+#define __EMO_OBJECTBASE_H
 
 #include <emodefs.h>
 
-
 EMO_BEGIN_NAMESPACE
 
-class EmoObject
+class EmoObjectBase
 {
 };
 
 EMO_END_NAMESPACE
 
-#endif // __EMO_OBJECT_H
+#endif // __EMO_OBJECTBASE_H
 

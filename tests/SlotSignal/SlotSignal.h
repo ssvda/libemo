@@ -3,7 +3,7 @@
 #include <emoslot.h>
 #include <emosignal.h>
 #include <emobind.h>
-#include <emoobject.h>
+#include <emoobjectbase.h>
 
 using namespace Emo;
 
@@ -32,7 +32,7 @@ public:
 };
 
 class MocReceiver
-	:public EmoObject
+	:public EmoObjectBase
 {
 public:
 	MocReceiver()

@@ -55,7 +55,7 @@ private:
 				static SlotType slot; \
 				return &slot; \
 			} \
-			void call(EmoObject *o, void **a) \
+			void call(EmoObjectBase *o, void **a) \
 			{ \
 				static_cast<MasterType *>(o)->SLOTNAME ARGUMENTS; \
 			} \

@@ -12,7 +12,7 @@ using namespace Emo;
 class MocSlot
 	:public EmoSlotBase
 {
-	void call(EmoObject *, void**)
+	void call(EmoObjectBase *, void**)
 	{
 	}
 };

@@ -27,14 +27,14 @@
 EMO_BEGIN_NAMESPACE
 
 // Forward declarations:
-class EmoObject;
+class EmoObjectBase;
 class EmoSlotBase;
 
 struct EmoBinding
 {
 	inline
 	EmoBinding(EmoSlotBase *slot,
-	           EmoObject *object)
+	           EmoObjectBase *object)
 		:m_slot(slot),
 		 m_object(object)
 	{}
@@ -43,7 +43,7 @@ struct EmoBinding
 	{}
 	
 	EmoSlotBase *m_slot;
-	EmoObject *m_object;
+	EmoObjectBase *m_object;
 };
 
 EMO_END_NAMESPACE

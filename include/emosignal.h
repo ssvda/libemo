@@ -29,7 +29,7 @@
 EMO_BEGIN_NAMESPACE
 
 // Forward declarations
-class EmoObject;
+class EmoObjectBase;
 class EmoSlotBase;
 
 template <typename SignalMasterType,
@@ -40,13 +40,13 @@ public:
 	typedef SignalMasterType MasterType;
 	
 	inline
-	void bind(EmoSlotBase *slot, EmoObject *reciver)
+	void bind(EmoSlotBase *slot, EmoObjectBase *reciver)
 	{
 		this->m_int.bind(EmoBinding(slot, reciver));
 	}
 	
 	inline
-	void unbind(EmoSlotBase *slot, EmoObject *reciver)
+	void unbind(EmoSlotBase *slot, EmoObjectBase *reciver)
 	{
 		this->m_int.unbind(EmoBinding(slot, reciver));
 	}

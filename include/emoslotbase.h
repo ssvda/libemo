@@ -27,13 +27,13 @@
 EMO_BEGIN_NAMESPACE
 
 // Forward declarations
-class EmoObject;
+class EmoObjectBase;
 
 class EmoSlotBase
 {
 public:
 	virtual
-	void call(EmoObject *, void **a) = 0;
+	void call(EmoObjectBase *, void **a) = 0;
 };
 
 EMO_END_NAMESPACE
