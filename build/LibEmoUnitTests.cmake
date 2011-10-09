@@ -85,6 +85,15 @@ if (EMO_RUN_TESTS_64)
 endif (EMO_RUN_TESTS_64)
 
 
+# Enable code coverage
+if (EMO_CODE_COVERAGE)
+	set (CMAKE_CXX_FLAGS "-fprofile-arcs -ftest-coverage")
+	target_link_libraries (${PROJECT_NAME} gcov)
+	if (EMO_RUN_TESTS_64)
+		target_link_libraries (${PROJECT_NAME}64 gcov)
+	endif (EMO_RUN_TESTS_64)
+endif (EMO_CODE_COVERAGE)
+
 # Run unit tests
 if (EMO_RUN_TESTS)
 	add_custom_target (test ALL $<TARGET_FILE:UnitTest>
