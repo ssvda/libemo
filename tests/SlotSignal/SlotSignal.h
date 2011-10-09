@@ -145,6 +145,18 @@ public:
 		s.incrementOn(10);
 		CPPUNIT_ASSERT(r.result() == 1);
 	}
+
+	void testForSeveralSignals()
+	{
+		MocReceiver r;
+		MocSender s1,s2;
+		emoBind<EMO_SLOT(MocReceiver::increment)(int)>(&r,s1.incrementOn);
+		emoBind<EMO_SLOT(MocReceiver::increment)(int)>(&r,s2.incrementOn);
+		s1.incrementOn(2);
+		CPPUNIT_ASSERT(r.result() == 2);
+		s2.incrementOn(3);
+		CPPUNIT_ASSERT(r.result() == 5);
+	}
 };
 
 static CPPUNIT_NS::AutoRegisterSuite<UNITTEST_NAME> CPPUNIT_JOIN(test,UNITTEST_NAME);
