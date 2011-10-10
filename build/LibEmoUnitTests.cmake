@@ -121,4 +121,42 @@ else (EMO_RUN_TESTS)
 	endif (EMO_RUN_TESTS_64)
 endif (EMO_RUN_TESTS)
 
+if (EMO_CODE_COVERAGE)
+	add_custom_target (coverage_metrics
+		mkdir -p "${EMO_COVERAGE_DIR}" &&
+		lcov --directory "${EMO_BUILD_DIR}/tests/CMakeFiles/UnitTest.dir/" --zerocounters &&
+		$<TARGET_FILE:UnitTest> &&
+		lcov --directory "${EMO_BUILD_DIR}/tests/CMakeFiles/UnitTest.dir/" --capture --output-file "${EMO_COVERAGE_DIR}/test.info"
+	)
+	
+	add_custom_target (coverage_report
+		genhtml -o "${EMO_COVERAGE_DIR}/test" "${EMO_COVERAGE_DIR}/test.info"
+		DEPENDS coverage_metrics
+	)
+	
+	if (EMO_RUN_TESTS_64)
+		add_custom_target (coverage_metrics64
+			mkdir -p "${EMO_COVERAGE_DIR}" &&
+			lcov --directory "${EMO_BUILD_DIR}/tests/CMakeFiles/UnitTest64.dir/" --zerocounters &&
+			$<TARGET_FILE:UnitTest64> &&
+			lcov --directory "${EMO_BUILD_DIR}/tests/CMakeFiles/UnitTest64.dir/" --capture --output-file "${EMO_COVERAGE_DIR}/test64.info"
+		)
+	
+		add_custom_target (coverage_report64
+			genhtml -o "${EMO_COVERAGE_DIR}/test64" "${EMO_COVERAGE_DIR}/test64.info"
+			DEPENDS coverage_metrics64
+		)
+		
+		add_custom_target (coverage
+			DEPENDS coverage_report
+			DEPENDS coverage_report64
+		)
+	else (EMO_RUN_TESTS_64)
+		add_custom_target (coverage
+			DEPENDS coverage_report
+		)
+	endif (EMO_RUN_TESTS_64)
+	
+endif (EMO_CODE_COVERAGE)
+
 endmacro (generate_unit_test)

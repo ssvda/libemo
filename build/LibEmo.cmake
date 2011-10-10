@@ -42,7 +42,7 @@ set (EMO_DOC_DIR    ${EMO_ROOT_DIR}/doc)
 set (EMO_TESTS_DIR  ${EMO_ROOT_DIR}/tests)
 set (EMO_CMAKE_DIR  ${EMO_ROOT_DIR}/mkspec/cmake)
 set (EMO_BUILD_DIR  ${EMO_ROOT_DIR}/build)
-
+set (EMO_COVERAGE_DIR ${EMO_ROOT_DIR}/coverage)
 #
 # Setup hints for FindLibEmo.cmake
 #

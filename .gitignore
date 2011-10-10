@@ -62,3 +62,7 @@ doxygen
 
 ### Ignore QtCreator's files
 *.user.*.*
+
+### Ignore Coverage files
+coverage
+
